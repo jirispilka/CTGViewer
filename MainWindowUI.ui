@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1029</width>
+    <height>526</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>CTGViewerLite</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0" rowspan="3">
+       <widget class="PlotWidget" name="PlotWidget" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1029</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionOpen_folder"/>
+    <addaction name="actionExport_to_PDF"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <widget class="QMenu" name="menuPaper_format">
+     <property name="title">
+      <string>Paper format</string>
+     </property>
+     <addaction name="actionEU"/>
+     <addaction name="actionUS"/>
+    </widget>
+    <widget class="QMenu" name="menuAnnotation_Toolbar">
+     <property name="title">
+      <string>Annotation Toolbar</string>
+     </property>
+     <addaction name="actionAnnToolbarVisible"/>
+     <addaction name="actionAnnToolbarAlign_right"/>
+    </widget>
+    <addaction name="actionClinical_information"/>
+    <addaction name="actionData_browser"/>
+    <addaction name="menuPaper_format"/>
+    <addaction name="menuAnnotation_Toolbar"/>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionAttribute_selection"/>
+    <addaction name="actionConvert_files"/>
+    <addaction name="actionDownload_CTU_UHB_data"/>
+    <addaction name="actionSent_annotations"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuView"/>
+   <addaction name="menuTools"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QDockWidget" name="dockClinInfo">
+   <property name="windowTitle">
+    <string>Clinical information</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockClinInfoContents"/>
+  </widget>
+  <widget class="QDockWidget" name="dockDataBrowser">
+   <property name="windowTitle">
+    <string>Data browser</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+   <property name="cursor">
+    <cursorShape>ArrowCursor</cursorShape>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="movable">
+    <bool>true</bool>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::AllToolBarAreas</set>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>22</width>
+     <height>22</height>
+    </size>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextUnderIcon</enum>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionCursor"/>
+   <addaction name="actionBasal"/>
+   <addaction name="actionBaseline"/>
+   <addaction name="actionRecovery"/>
+   <addaction name="actionNo_recovery"/>
+   <addaction name="actionExcessive_UA"/>
+   <addaction name="actionEllipseNote"/>
+   <addaction name="actionNote"/>
+   <addaction name="separator"/>
+   <addaction name="actionCaliper"/>
+   <addaction name="actionSave"/>
+   <addaction name="actionDelete"/>
+   <addaction name="separator"/>
+   <addaction name="actionFloating_Baseline"/>
+   <addaction name="actionAcceleration"/>
+   <addaction name="actionDeceleration"/>
+   <addaction name="actionUA"/>
+  </widget>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset>
+     <normalon>:/actions/icons/document-open-3.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Open file</string>
+   </property>
+   <property name="iconText">
+    <string>Open file</string>
+   </property>
+   <property name="statusTip">
+    <string/>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="icon">
+    <iconset>
+     <normalon>:/actions/icons/document-close-3.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Close</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="icon">
+    <iconset>
+     <normalon>:/actions/icons/application-exit-4.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+   <property name="toolTip">
+    <string>Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionConvert_files">
+   <property name="text">
+    <string>Convert files</string>
+   </property>
+  </action>
+  <action name="actionOpen_folder">
+   <property name="text">
+    <string>Open folder</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+O</string>
+   </property>
+  </action>
+  <action name="actionAttribute_selection">
+   <property name="text">
+    <string>Attribute selection</string>
+   </property>
+  </action>
+  <action name="actionDownload_CTU_UHB_data">
+   <property name="text">
+    <string>Download CTU-UHB data</string>
+   </property>
+  </action>
+  <action name="actionData_browser">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Data browser</string>
+   </property>
+  </action>
+  <action name="actionExport_to_PDF">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/pdf_icon2.png</normaloff>:/actions/icons/pdf_icon2.png</iconset>
+   </property>
+   <property name="text">
+    <string>Export to PDF</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+E</string>
+   </property>
+  </action>
+  <action name="actionEU">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>EU (1cm/min, 20bpm/cm)</string>
+   </property>
+   <property name="toolTip">
+    <string>EU (1cm/min., 20bpm/cm)</string>
+   </property>
+  </action>
+  <action name="actionUS">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>US (3cm/min, 30bpm/cm)</string>
+   </property>
+   <property name="toolTip">
+    <string>US (3cm/min., 30bpm/cm)</string>
+   </property>
+  </action>
+  <action name="actionSet_Clear_Baseline">
+   <property name="text">
+    <string>Set/Clear Baseline</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
+   </property>
+  </action>
+  <action name="actionBasal">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/basal.png</normaloff>:/actions/icons/basal.png</iconset>
+   </property>
+   <property name="text">
+    <string>basal</string>
+   </property>
+   <property name="iconText">
+    <string>Basal</string>
+   </property>
+   <property name="toolTip">
+    <string>Draw basal heart rate line</string>
+   </property>
+  </action>
+  <action name="actionBaseline">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/baseline.png</normaloff>:/actions/icons/baseline.png</iconset>
+   </property>
+   <property name="text">
+    <string>baseline</string>
+   </property>
+   <property name="iconText">
+    <string>Baseline</string>
+   </property>
+   <property name="toolTip">
+    <string>Draw a baseline (B)</string>
+   </property>
+   <property name="shortcut">
+    <string>B</string>
+   </property>
+  </action>
+  <action name="actionRecovery">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/recovery.png</normaloff>:/actions/icons/recovery.png</iconset>
+   </property>
+   <property name="text">
+    <string>recovery</string>
+   </property>
+   <property name="iconText">
+    <string>Recovery</string>
+   </property>
+   <property name="toolTip">
+    <string>Recovery (R)</string>
+   </property>
+   <property name="shortcut">
+    <string>R</string>
+   </property>
+  </action>
+  <action name="actionCursor">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/cursor.png</normaloff>:/actions/icons/cursor.png</iconset>
+   </property>
+   <property name="text">
+    <string>select</string>
+   </property>
+   <property name="iconText">
+    <string>Select</string>
+   </property>
+   <property name="toolTip">
+    <string>Select and move (S)</string>
+   </property>
+   <property name="shortcut">
+    <string>S</string>
+   </property>
+  </action>
+  <action name="actionNote">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/note.png</normaloff>:/actions/icons/note.png</iconset>
+   </property>
+   <property name="text">
+    <string>note</string>
+   </property>
+   <property name="iconText">
+    <string>Note</string>
+   </property>
+   <property name="toolTip">
+    <string>Add note</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/save_icon.png</normaloff>:/actions/icons/save_icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>save</string>
+   </property>
+   <property name="iconText">
+    <string>Save</string>
+   </property>
+   <property name="toolTip">
+    <string>Save all changes</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/recycle_bin.png</normaloff>:/actions/icons/recycle_bin.png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete</string>
+   </property>
+   <property name="iconText">
+    <string>Delete All</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete all annotations</string>
+   </property>
+  </action>
+  <action name="actionSent_annotations">
+   <property name="text">
+    <string>Sent annotations</string>
+   </property>
+  </action>
+  <action name="actionNo_recovery">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/no_recovery.png</normaloff>:/actions/icons/no_recovery.png</iconset>
+   </property>
+   <property name="text">
+    <string>No recovery</string>
+   </property>
+  </action>
+  <action name="actionEllipse">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/ellipse-icon.png</normaloff>:/actions/icons/ellipse-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Mark</string>
+   </property>
+   <property name="toolTip">
+    <string>Draw mark (ellipse)</string>
+   </property>
+  </action>
+  <action name="actionExcessive_UA">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/excessive_ua.png</normaloff>:/actions/icons/excessive_ua.png</iconset>
+   </property>
+   <property name="text">
+    <string>Excessive UA</string>
+   </property>
+   <property name="toolTip">
+    <string>Excessive uterine contractions</string>
+   </property>
+  </action>
+  <action name="actionAnnToolbarVisible">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show/hide</string>
+   </property>
+   <property name="toolTip">
+    <string>Show/hide annotation toolbar and annotations</string>
+   </property>
+  </action>
+  <action name="actionAnnToolbarAlign_right">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Align right</string>
+   </property>
+  </action>
+  <action name="actionClinical_information">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Clinical information</string>
+   </property>
+  </action>
+  <action name="actionEllipseNote">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/ellipse-note-icon.png</normaloff>:/actions/icons/ellipse-note-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Mark </string>
+   </property>
+   <property name="toolTip">
+    <string>Mark with note</string>
+   </property>
+  </action>
+  <action name="actionFloating_Baseline">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/floating_baseline.png</normaloff>:/actions/icons/floating_baseline.png</iconset>
+   </property>
+   <property name="text">
+    <string>Float. Baseline</string>
+   </property>
+   <property name="toolTip">
+    <string>Add Floating Baseline (F)</string>
+   </property>
+   <property name="shortcut">
+    <string>F</string>
+   </property>
+  </action>
+  <action name="actionAcceleration">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/acceleration.png</normaloff>:/actions/icons/acceleration.png</iconset>
+   </property>
+   <property name="text">
+    <string>Accel</string>
+   </property>
+   <property name="toolTip">
+    <string>Add acceleration (A)</string>
+   </property>
+   <property name="shortcut">
+    <string>A</string>
+   </property>
+  </action>
+  <action name="actionDeceleration">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/deceleration.png</normaloff>:/actions/icons/deceleration.png</iconset>
+   </property>
+   <property name="text">
+    <string>Decel</string>
+   </property>
+   <property name="toolTip">
+    <string>Add deceleration (D)</string>
+   </property>
+   <property name="shortcut">
+    <string>D</string>
+   </property>
+  </action>
+  <action name="actionUA">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/uterine_contraction.png</normaloff>:/actions/icons/uterine_contraction.png</iconset>
+   </property>
+   <property name="text">
+    <string>UA</string>
+   </property>
+   <property name="toolTip">
+    <string>Add uterine contraction (U)</string>
+   </property>
+   <property name="shortcut">
+    <string>U</string>
+   </property>
+  </action>
+  <action name="actionCaliper">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/caliper.png</normaloff>:/actions/icons/caliper.png</iconset>
+   </property>
+   <property name="text">
+    <string>Caliper</string>
+   </property>
+   <property name="toolTip">
+    <string>Caliper (C)</string>
+   </property>
+   <property name="shortcut">
+    <string>C</string>
+   </property>
+  </action>
+  <action name="actionCaliperFHR">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>FHR</string>
+   </property>
+   <property name="toolTip">
+    <string>Enable caliper FHR</string>
+   </property>
+  </action>
+  <action name="actionCaliperTOCO">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>TOCO</string>
+   </property>
+   <property name="toolTip">
+    <string>Enable caliper TOCO</string>
+   </property>
+  </action>
+  <action name="actionFIGO_acc_dec">
+   <property name="text">
+    <string>FIGO acc/dec</string>
+   </property>
+   <property name="toolTip">
+    <string>FIGO requirements for acc/dec</string>
+   </property>
+  </action>
+  <action name="actionFIGO_UA">
+   <property name="text">
+    <string>FIGO UA</string>
+   </property>
+   <property name="toolTip">
+    <string>Requirements for uterine contractions</string>
+   </property>
+  </action>
+  <action name="actionCaliperReset">
+   <property name="text">
+    <string>Reset caliper</string>
+   </property>
+   <property name="toolTip">
+    <string>Reset caliper settings</string>
+   </property>
+  </action>
+  <action name="actionAnnShowHide">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/ann_visibility.png</normaloff>:/actions/icons/ann_visibility.png</iconset>
+   </property>
+   <property name="text">
+    <string>Show/hide</string>
+   </property>
+   <property name="toolTip">
+    <string>Show/hide annotations</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PlotWidget</class>
+   <extends>QWidget</extends>
+   <header>PlotWidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections/>
+ <designerdata>
+  <property name="gridDeltaX">
+   <number>10</number>
+  </property>
+  <property name="gridDeltaY">
+   <number>10</number>
+  </property>
+  <property name="gridSnapX">
+   <bool>true</bool>
+  </property>
+  <property name="gridSnapY">
+   <bool>true</bool>
+  </property>
+  <property name="gridVisible">
+   <bool>true</bool>
+  </property>
+ </designerdata>
+</ui>

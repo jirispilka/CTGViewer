@@ -1,0 +1,7 @@
+# TODO add reguirements
+# TODO document pip install
+scipy
+numpy
+reportlab
+PyQt4
+PyQt4.Qwt5

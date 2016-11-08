@@ -1,0 +1,37 @@
+<RCC>
+  <qresource prefix="actions">
+    <file>icons/ann_visibility.png</file>
+    <file>icons/caliper.png</file>
+    <file>icons/deceleration.png</file>
+    <file>icons/pdf_icon2.png</file>
+    <file>icons/acceleration.png</file>
+    <file>icons/uterine_contraction.png</file>
+    <file>icons/floating_baseline.png</file>
+    <file>icons/ellipse-icon.png</file>
+    <file>icons/ellipse-note-icon.png</file>
+    <file>icons/excessive_ua.png</file>
+    <file>icons/no_recovery.png</file>
+    <file>icons/send-file-16.png</file>
+    <file>icons/arrow-up.png</file>
+    <file>icons/save_icon.png</file>
+    <file>icons/arrow-down.png</file>
+    <file>icons/recycle_bin.png</file>
+    <file>icons/cursor-move.png</file>
+    <file>icons/note.png</file>
+    <file>icons/cursor.png</file>
+    <file>icons/recovery.png</file>
+    <file>icons/valid-512.png</file>
+    <file>icons/next_icon.png</file>
+    <file>icons/basal.png</file>
+    <file>icons/baseline.png</file>
+    <file>icons/previous_icon.png</file>
+    <file>icons/arrow-left-2.png</file>
+    <file>icons/arrow-left-double-2.png</file>
+    <file>icons/arrow-right-2.png</file>
+    <file>icons/arrow-right-double-2.png</file>
+    <file>icons/document-close-3.png</file>
+    <file>icons/icon_convert.png</file>
+    <file>icons/application-exit-4.png</file>
+    <file>icons/document-open-3.png</file>
+  </qresource>
+</RCC>
