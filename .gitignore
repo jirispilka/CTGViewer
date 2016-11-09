@@ -88,4 +88,9 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Pycharm project
 .idea/
+
+# temporary files
+playground/

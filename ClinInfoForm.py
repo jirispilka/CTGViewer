@@ -6,7 +6,7 @@
 # @2015, CIIRC, Czech Technical University in Prague
 #
 # Licensed under the terms of the GNU GENERAL PUBLIC LICENSE
-# (see CTGViewerLite.py for details)
+# (see CTGViewer.py for details)
 
 import sys
 from PyQt4.QtGui import QApplication, QWidget, QFont

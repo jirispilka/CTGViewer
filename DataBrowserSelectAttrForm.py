@@ -6,7 +6,7 @@
 # @2015, CIIRC, Czech Technical University in Prague
 #
 # Licensed under the terms of the GNU GENERAL PUBLIC LICENSE
-# (see ctgViewerLite.py for details)
+# (see ctgViewer.py for details)
 
 """
 DataBrowserSelectAttributesForm

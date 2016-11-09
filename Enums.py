@@ -6,7 +6,7 @@
 # @2015, CIIRC, Czech Technical University in Prague
 #
 # Licensed under the terms of the GNU GENERAL PUBLIC LICENSE
-# (see CTGViewerLite.py for details)
+# (see CTGViewer.py for details)
 
 
 class EnumIniVar:
@@ -51,10 +51,10 @@ class EnumVariableName:
 
     save('temp.mat','fhr','uc','timestamp')
 
-    | View file in ctgViewerLite
-    | 1) open via menu bar in ctgViewerLite
-    | 2) call ctgViewerLite from command prompt, see REFERENCE NEEDED: for details
-    | 3) call ctgViewerLite from matlab, see REFERENCE NEEDED: for details
+    | View file in CTGViewer
+    | 1) open via menu bar in CTGViewer
+    | 2) call CTGViewer from command prompt, see REFERENCE NEEDED: for details
+    | 3) call CTGViewer from matlab, see REFERENCE NEEDED: for details
 
     """
 

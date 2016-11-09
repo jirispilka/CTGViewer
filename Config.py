@@ -6,7 +6,7 @@
 # @2015, CIIRC, Czech Technical University in Prague
 #
 # Licensed under the terms of the GNU GENERAL PUBLIC LICENSE
-# (see CTGViewerLite.py for details)
+# (see CTGViewer.py for details)
 
 from os.path import expanduser, join
 from datetime import datetime
@@ -174,11 +174,11 @@ class ConfigStatic:
 
     _configParser = ConfigParser.ConfigParser()
 
-    user_directory = expanduser("~/.ctgViewerLite")
+    user_directory = expanduser("~/.CTGViewer")
 
     # logging
     logging_level = logging.ERROR
-    logger_name = 'ctgViewerLite'
+    logger_name = 'CTGViewer'
     log_path = join(user_directory, 'logs')
     log_name = 'log_' + datetime.today().strftime("%Y-%m-%d_%H-%M-%S") + '.log'
     log_file = join(log_path, log_name)

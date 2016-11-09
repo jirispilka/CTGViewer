@@ -19,15 +19,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-CTGViewerLite
-----------------
+CTGViewer
+---------
 
-The CTGViewerLite module provides the plotting for the CTU-UHB database
+The CTGViewer module provides the plotting for the CTU-UHB database
 
 Reference
 ~~~~~~~~~~~
 
-.. autoclass:: ctgViewerLite
+.. autoclass:: CTGViewer
    :members:
 """
 

@@ -6,7 +6,7 @@
 # @2015, CIIRC, Czech Technical University in Prague
 #
 # Licensed under the terms of the GNU GENERAL PUBLIC LICENSE
-# (see CTGViewerLite.py for details)
+# (see CTGViewer.py for details)
 
 """
 MainWindow
@@ -43,7 +43,7 @@ from Print import ExportToPdfForm
 import Common
 
 DEBUG_PROFILE = False
-DEBUG_FIGO_ANN = False
+DEBUG_FIGO_ANN = True
 DEBUG_MISC = False
 
 # conditional import

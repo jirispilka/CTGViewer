@@ -6,7 +6,7 @@
 # @2015, CIIRC, Czech Technical University in Prague
 #
 # Licensed under the terms of the GNU GENERAL PUBLIC LICENSE
-# (see CTGViewerLite.py for details)
+# (see CTGViewer.py for details)
 
 """
 LoadWriteData
@@ -427,7 +427,7 @@ class LoadData:
 
     def transform_lyon_info(self, cdata, n):
         """
-        Transform loaded matlab file into compatible format for CTGViewerLite
+        Transform loaded matlab file into compatible format for CTGViewer
 
         :param cdata: metainfo from Lyon database
         :param n: length of the FHR data

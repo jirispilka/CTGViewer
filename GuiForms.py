@@ -6,7 +6,7 @@
 # @2015, CIIRC, Czech Technical University in Prague
 #
 # Licensed under the terms of the GNU GENERAL PUBLIC LICENSE
-# (see CTGViewerLite.py for details)
+# (see CTGViewer.py for details)
 
 
 import csv
@@ -573,7 +573,6 @@ class DownloadDbForm(QtGui.QWidget):
 
         self._bAbort = False
 
-        # self.ui.lnDestDir.setText('/home/jirka/svn_working_copy/iga_brno/python/ctgViewerLite/src/testy/aaa')
         self._url = str(self.ui.lineEditUrl.text())
         self.ui.textEditInfo.clear()
 

@@ -6,7 +6,7 @@
 # @2015, CIIRC, Czech Technical University in Prague
 #
 # Licensed under the terms of the GNU GENERAL PUBLIC LICENSE
-# (see CTGViewerLite.py for details)
+# (see CTGViewer.py for details)
 
 from cx_Freeze import setup, Executable
 import os
@@ -16,7 +16,7 @@ import shutil
 BASE_DIR = os.path.dirname(__file__)
 OUT_DIR = os.path.join(BASE_DIR, 'build')
 
-INNO_SCRIPT = 'setup_inno.iss'  # the script with Inno setup commands for the CTGViewerLite
+INNO_SCRIPT = 'setup_inno.iss'  # the script with Inno setup commands for the CTGViewer
 INNO_EXECUTABLE = '"c:\\Program Files\\Inno Setup 5\\ISCC.exe"'  # path to the installed Inno Setup
 
 # delete output dir
@@ -31,16 +31,16 @@ packages = ["reportlab", "scipy"]
 path = []
 
 exeTarget = Executable(
-    script=os.path.join(BASE_DIR, "CTGViewerLite.py"),
+    script=os.path.join(BASE_DIR, "CTGViewer.py"),
     base="Win32GUI",
     compress=True,
     copyDependentFiles=True,
     )
 
 setup(
-    name="CTGViewerLite",
+    name="CTGViewer",
     version="0.3.00",
-    description="CTGViewerLite application",
+    description="CTGViewer application",
     author="Jiri Spilka",
     author_email='jiri.spilka@ciirc.cvut.cz',
     url='http://people.ciirc.cvut.cz/~spilkjir',
