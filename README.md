@@ -5,4 +5,4 @@ CTG files (fetal heart rate and uterine contraction)
 
 ## License
 
-[CTGViewer](./LICENSE).
+[CTGViewer](/LICENSE).
