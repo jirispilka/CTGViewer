@@ -7,7 +7,7 @@ Installation for Windows
 
 Download and install the windows installer below
 
-  * Download the CTGViewerLite installer, run it and follow the installation steps (:ref:`downloads`)
+  * Download the CTGViewer installer, run it and follow the installation steps (:ref:`downloads`)
   * In the case of trouble, try to download and install package `vcredist_x86.exe <http://www.microsoft.com/en-us/download/details.aspx?id=5555>`_
 
 
@@ -23,9 +23,9 @@ We expect that Linux users will be able to install required packages in their di
 
 After installation run command::
 
-    > python ctgViewerLite.py
+    > python CTGViewer.py
 
-It is also possible (though not recommended) to download the Windows installer and run CTGViewerLite under wine.
+It is also possible (though not recommended) to download the Windows installer and run CTGViewer under wine.
 
 MAC users:
 ``````````
@@ -36,7 +36,7 @@ for further details on how to install Python to MAC.
 
 See the (:ref:`developement`) for details on required packages.
 
-It is also possible (though not recommended) to download the Windows installer and run CTGViewerLite under wine.
+It is also possible (though not recommended) to download the Windows installer and run CTGViewer under wine.
 
 Installation from source
 ------------------------

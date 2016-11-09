@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# CTGViewerLite documentation build configuration file, created by
+# CTGViewer documentation build configuration file, created by
 # sphinx-quickstart on Sun Dec  4 17:28:15 2011.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -16,7 +16,7 @@ import sys, os
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#sys.path.insert(0, os.path.abspath('.'))
+# sys.path.insert(0, os.path.abspath('.'))
 
 
 print "############ sys path ###############"
@@ -50,7 +50,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'CTGViewerLite'
+project = u'CTGViewer'
 copyright = u'2013, Jiri Spilka. Vaclav Chudacek'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -176,7 +176,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'CTGViewerLitedoc'
+htmlhelp_basename = 'CTGViewerdoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -190,7 +190,7 @@ latex_font_size = '10pt'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'CTGViewerLite.tex', u'CTGViewerLite documentation',
+  ('index', 'CTGViewer.tex', u'CTGViewer documentation',
    u'Jiri Spilka', 'manual'),
 ]
 
@@ -223,7 +223,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'CTGViewerLite', u'CTGViewerLite documentation',
+    ('index', 'CTGViewer', u'CTGViewer documentation',
      [u'Jiri Spilka'], 1)
 ]
 

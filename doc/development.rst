@@ -20,7 +20,7 @@ Dependencies
 Feature request
 ---------------
 
-We appreciate any help regarding the developing and testing the CTGViewerLite.
+We appreciate any help regarding the developing and testing the CTGViewer.
 The following things are planned to be implemented (when time allows):
 
 * view clinical information in one table
@@ -51,7 +51,7 @@ I don't remember the reason why I've preferred *cx_Freeze* over pyinstaller. I g
 When having the windows executables it is convinient to make a single installer file that unpack the executables to desired location and handles the possible dependent files.
 For this purpose I have found  `Inno setup <http://www.jrsoftware.org/isinfo.php>`_ simple and easy to use.
 
-**In summary the CTGViewerLite installer is based on** `cx_Freeze <http://cx-freeze.sourceforge.net/>`_ **plus** `Inno setup <http://www.jrsoftware.org/isinfo.php>`_.
+**In summary the CTGViewer installer is based on** `cx_Freeze <http://cx-freeze.sourceforge.net/>`_ **plus** `Inno setup <http://www.jrsoftware.org/isinfo.php>`_.
 
 Useful links
 ------------
@@ -83,12 +83,12 @@ In the command prompt run::
 * It first creates the windows executables using the cx_Freeze and place them into a build directory: build/exe.win32-2.6
 * It runs the Inno Setup (using the *setup_inno.iss*) and creates windows installer and places it into a build directory: build
 
-**The results is an executables installer file CTGViewerLite_v*.exe placed in the directory build.**
+**The results is an executables installer file CTGViewer_v*.exe placed in the directory build.**
 
 Files
 -----
 
-All required files are available in the CTGViewerLite.zip file (see :ref:`downloads`).
+All required files are available in the CTGViewer.zip file (see :ref:`downloads`).
 
 **An example of setup.py file:**
 

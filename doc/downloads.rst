@@ -4,7 +4,7 @@
 Downloads
 =========
 
-The CTGViewerLite is open-source software, developed under `GNU license version 3 <http://www.gnu.org/copyleft/gpl.html>`_.
+The CTGViewer is open-source software, developed under `GNU license version 3 <http://www.gnu.org/copyleft/gpl.html>`_.
 
 
 Windows installer

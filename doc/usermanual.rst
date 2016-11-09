@@ -2,7 +2,7 @@
 User Manual
 ===========
 
-We believe that use of the CTGViewerLite is simple and intuitive. Below we provide only a specific usage.
+We believe that use of the CTGViewer is simple and intuitive. Below we provide only a specific usage.
 
 Annotator
 ---------
@@ -94,16 +94,17 @@ The following arguments can be used:
 **Examples**
 ::
 
-    > python ctgViewerLite.py -p 1001.dat
-    > python ctgViewerLite.py -m 1001.mat
+    > python ctgViewer.py -p 1001.dat
+    > python ctgViewer.py -m 1001.mat
 
-Calling the CTGViewerLite from Matlab
+Calling the CTGViewer from Matlab
 -------------------------------------
 
-The data in Matlab can be viewed by the CTGViewerLite. The CTGViewerLite is run as a separate process and loads data from Matlab. The data are first saved into a matlab file and then loaded in the CTGViewerLite application. There are two essential matlab files:
+The data in Matlab can be viewed by the CTGViewer. The CTGViewer is run as a separate process and loads data from Matlab.
+The data are first saved into a matlab file and then loaded in the CTGViewer application. There are two essential matlab files:
 
 * `python.m <http://people.ciirc.cvut.cz/~spilkjir/matlab/python.m>`_ runs a python script
-* `plotCTGViewerLite.m <http://people.ciirc.cvut.cz/~spilkjir/matlab/plotCTGViewerLite.m>`_ plot the fetal heart rate and uterine contractions
+* `plotCTGViewer.m <http://people.ciirc.cvut.cz/~spilkjir/matlab/plotCTGViewer.m>`_ plot the fetal heart rate and uterine contractions
 
 **Example of usage:**
 

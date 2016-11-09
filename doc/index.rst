@@ -1,7 +1,7 @@
-CTGViewerLite documentation
-===========================
+CTGViewer documentation
+=======================
 
-The CTGViewerLite can be used to display cardiotocography (CTG) records.  for browsing of cardiotographic records of the CTU-UHB cardiotographic database.
+The CTGViewer can be used to display cardiotocography (CTG) records.  for browsing of cardiotographic records of the CTU-UHB cardiotographic database.
 Its purpose is to view a fetal heart rate and uterine contractions together with a clinical information.
 
 
@@ -15,17 +15,17 @@ Its purpose is to view a fetal heart rate and uterine contractions together with
 * create simple annotations like basal heart rate, accelerations, decelerations, and notes
 * export CTG to PDF (including annotations)
 
-.. image:: images/ctgViewerLite_0_2_55.*
+.. image:: images/CTGViewer.*
     :scale: 50
 
-The CTGViewerLite was developed by `Jiri Spilka <http://people.ciirc.cvut.cz/~spilkjir/>`_ and
+The CTGViewer was developed by `Jiri Spilka <http://people.ciirc.cvut.cz/~spilkjir/>`_ and
 `Vaclav Chudacek <http://ctg.ciirc.cvut.cz/personal/chudacek.html>`_ at
 `Czech Technical University in Prague <http://www.cvut.cz/>`_
 
 The application is maintained at `CIIRC <http://www.ciirc.cvut.cz/>`_, `Czech Technical University in Prague <http://www.cvut.cz/>`_
 
-**Note**: The CTGViewerLite was developed for research purposes. The software is provided with no warranty.
-The CTGViewerLite is distributed under GNU General Public License version 3.
+**Note**: The CTGViewer was developed for research purposes. The software is provided with no warranty.
+The CTGViewer is distributed under GNU General Public License version 3.
 
 Contents:
 
