@@ -10,11 +10,11 @@ VERSION="0.3.00"
 # build html
 echo copy documentation
 make html -C doc
-cp -r doc/_build/html/* ~/dokumenty/web/spilkaj2015ciirc/software/CTGViewerLite/
+cp -r doc/_build/html/* ~/dokumenty/web/spilkaj2015ciirc/software/CTGViewer/
 
 echo Pack and copy source files and documentation
-FILE="CTGViewerLite-$VERSION.zip"
-DIR="CTGViewerLite-$VERSION"
+FILE="CTGViewer-$VERSION.zip"
+DIR="CTGViewer-$VERSION"
 echo $FILE
 
 # remove existing
@@ -34,6 +34,7 @@ cp *.ui $DIR
 cp *.qrc $DIR
 #cp default.ini $DIR
 cp README $DIR
+cp LICENSE $DIR
 cp -r unittest_files $DIR
 
 echo Packing ....
@@ -42,7 +43,7 @@ zip -rq $FILE $DIR
 cp $FILE ~/dokumenty/web/spilkaj2015ciirc/software/
 
 # copy exe files
-FILE_EXE="CTGViewerLite_v${VERSION}_setup.exe"
+FILE_EXE="CTGViewer_v${VERSION}_setup.exe"
 cp build/$FILE_EXE ~/dokumenty/web/spilkaj2015ciirc/software/$FILE_EXE
 
 rm -r $DIR
