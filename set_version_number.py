@@ -13,8 +13,8 @@ import shutil
 import io
 import sys
 
-sOldVersion = "0.2.72"
-sNewVersion = "0.3.00"
+sOldVersion = "0.3.00"
+sNewVersion = "0.3.10"
 
 
 def run():

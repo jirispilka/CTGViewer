@@ -5,7 +5,7 @@
 echo pack source code and copy them to local web site
 echo running ...
 
-VERSION="0.3.00"
+VERSION="0.3.10"
 
 # build html
 echo copy documentation
@@ -33,7 +33,7 @@ cp *.py $DIR
 cp *.ui $DIR
 cp *.qrc $DIR
 #cp default.ini $DIR
-cp README $DIR
+cp README.md $DIR
 cp LICENSE $DIR
 cp -r unittest_files $DIR
 

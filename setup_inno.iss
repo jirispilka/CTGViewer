@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 [ISPP]
 #define AppName "CTGViewer"
-#define AppVersion "0.3.00"
+#define AppVersion "0.3.10"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -18,7 +18,7 @@ AppUpdatesURL=http://people.ciirc.cvut.cz/~spilkjir
 DefaultDirName={pf}\CTGViewer
 DefaultGroupName=CTGViewer
 AllowNoIcons=yes
-LicenseFile=e:\home\jirka\github\CTGViewer\LICENSE
+LicenseFile=e:\github\CTGViewer\LICENSE
 OutputBaseFilename={#AppName}_v{#AppVersion}_setup
 Compression=lzma
 ; Compression=none
@@ -34,10 +34,10 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 ; Files to include into installer
 
 [Files]
-Source: "E:\home\jirka\github\CTGViewer\build\exe.win32-2.7\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "E:\home\jirka\github\CTGViewer\icons\favicon16.ico"; DestDir: "{app}"; Flags: ignoreversion
-Source: "E:\home\jirka\github\CTGViewer\icons\favicon32.ico"; DestDir: "{app}"; Flags: ignoreversion
-Source: "E:\home\jirka\github\CTGViewer\icons\uninstall.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "E:\github\CTGViewer\build\exe.win32-2.7\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "E:\github\CTGViewer\icons\favicon16.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "E:\github\CTGViewer\icons\favicon32.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "E:\github\CTGViewer\icons\uninstall.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 ; NOTE: Do not use "Flags: ignoreversion" on any shared system files
 

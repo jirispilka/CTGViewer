@@ -1,6 +1,6 @@
 # file: Makefile	Jiri Spilka (jiri.spilka@ciirc.cvut.cz)
 
-all: MainWindowUI ClinInfoWidgetUI AboutUI ConvertFileUI DataBrowserSelectAttrUI DataBrowserUI DownloadCtuUhbUI SetClearBaselineUI AddNoteUI SentAnnotationsUI ExportPdfUI AnnShowHideUI resources
+all: MainWindowUI ClinInfoWidgetUI AboutUI ConvertFileUI DataBrowserSelectAttrUI DataBrowserUI DownloadCtuUhbUI AddNoteUI SentAnnotationsUI ExportPdfUI AnnShowHideUI resources
 
 MainWindowUI: MainWindowUI.ui
 	pyuic4 MainWindowUI.ui -o MainWindowUI.py
@@ -22,9 +22,6 @@ DataBrowserUI: DataBrowserUI.ui
 
 DownloadCtuUhbUI: DownloadCtuUhbUI.ui
 	pyuic4 DownloadCtuUhbUI.ui -o DownloadCtuUhbUI.py	
-
-SetClearBaselineUI: SetClearBaselineUI.ui
-	pyuic4 SetClearBaselineUI.ui -o SetClearBaselineUI.py
 
 AddNoteUI: AddNoteUI.ui
 	pyuic4 AddNoteUI.ui -o AddNoteUI.py		

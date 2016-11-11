@@ -16,8 +16,8 @@ CTU-UHB cardiotographic database).
 
 ![CTGViewer screenshot](doc/images/CTGViewer_0_2_55.png)
 
-Installation & Configuration
-----------------------------
+Installation & Configuration (linux and windows)
+------------------------------------------------
 
 [See in the documentation](http://people.ciirc.cvut.cz/~spilkjir/software/CTGViewer/index.html)
 

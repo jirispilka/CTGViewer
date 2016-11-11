@@ -15,22 +15,14 @@ Dependencies
    * Argparse - arguments parsing
    * Reportlab - export to PDF files
 
-**In the case of interest in development do not hesitate to contact us.**
+The source codes are on github: https://github.com/spilkjir/CTGViewer
 
-Feature request
----------------
+Feature requests and bugs:
+--------------------------
 
 We appreciate any help regarding the developing and testing the CTGViewer.
-The following things are planned to be implemented (when time allows):
 
-* view clinical information in one table
-* improve documentation
-* test under Mac OS
-* show progress bar when converting files
-
-Reported bugs
--------------
-* none reported
+Please use github: https://github.com/spilkjir/CTGViewer
 
 Building Windows executables
 ````````````````````````````
@@ -88,7 +80,7 @@ In the command prompt run::
 Files
 -----
 
-All required files are available in the CTGViewer.zip file (see :ref:`downloads`).
+All required files are available on github: https://github.com/spilkjir/CTGViewer
 
 **An example of setup.py file:**
 

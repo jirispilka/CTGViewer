@@ -39,7 +39,7 @@ exeTarget = Executable(
 
 setup(
     name="CTGViewer",
-    version="0.3.00",
+    version="0.3.10",
     description="CTGViewer application",
     author="Jiri Spilka",
     author_email='jiri.spilka@ciirc.cvut.cz',

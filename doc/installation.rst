@@ -41,7 +41,7 @@ It is also possible (though not recommended) to download the Windows installer a
 Installation from source
 ------------------------
 
-Download the ziped source in the section (:ref:`downloads`).
+The source code on github: https://github.com/spilkjir/CTGViewer
 
 Windows
 ```````
