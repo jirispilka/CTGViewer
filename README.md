@@ -14,7 +14,7 @@ CTU-UHB cardiotographic database).
 * create simple annotations like basal heart rate, accelerations, decelerations, and notes
 * export CTG to PDF (including annotations)
 
-![CTGViewer screenshot](https://github.com/spilkjir/CTGViewer/doc/images/CTGViewer_0_2_55.png)
+![CTGViewer screenshot](doc/images/CTGViewer_0_2_55.png)
 
 Installation & Configuration
 ----------------------------
@@ -26,4 +26,4 @@ Installation & Configuration
 The CTGViewer was developed for research purposes and it is provided with no warranty.
 The CTGViewer is distributed under GNU General Public License version 3.
 
-[CTGViewer](/LICENSE).
+[CTGViewer license GPL 3](/LICENSE).
