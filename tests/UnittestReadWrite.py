@@ -28,7 +28,7 @@ class TestReadWrite(unittest.TestCase):
 
     def test_read_csv(self):
 
-        file1 = os.path.join('unittest_files', '1001.csv')
+        file1 = os.path.join('files', '1001.csv')
         adata, dummy = self._dataLoader.read_csv_file(file1)
 
         timestamp = adata[Enum.timestamp]
@@ -63,7 +63,7 @@ class TestReadWrite(unittest.TestCase):
         data_all[Enum.fhr] = t2
         data_all[Enum.uc] = t3
 
-        file1 = os.path.join('unittest_files', 'test_write_read.csv')
+        file1 = os.path.join('files', 'test_write_read.csv')
         self._dataLoader.write_csv_file(file1, data_all)
 
         data_read, dummy = self._dataLoader.read_csv_file(file1)
@@ -84,7 +84,7 @@ class TestReadWrite(unittest.TestCase):
 
     def test_read_matlab(self):
 
-        file1 = os.path.join('unittest_files', '1001.mat')
+        file1 = os.path.join('files', '1001.mat')
         adata = self._dataLoader.read_matlab_file(file1)
 
         timestamp = adata[Enum.timestamp]

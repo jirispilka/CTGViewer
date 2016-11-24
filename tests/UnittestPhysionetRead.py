@@ -27,7 +27,7 @@ class TestReadWrite(unittest.TestCase):
 
     def test_read_header(self):
 
-        file1 = os.path.join('unittest_files', '1001.hea')
+        file1 = os.path.join('files', '1001.hea')
         lheader, nrsignals, nfs, nrsamples = self._dataLoader.read_physionet_header(file1)
 
         dict1 = lheader[0]
@@ -47,7 +47,7 @@ class TestReadWrite(unittest.TestCase):
 
     def test_read_signal(self):
 
-        file1 = os.path.join('unittest_files', '1001.dat')
+        file1 = os.path.join('files', '1001.dat')
         adata, dummy = self._dataLoader.read_physionet_signal16(file1)
 
         fhr = adata[Enum.fhr]
@@ -63,3 +63,4 @@ class TestReadWrite(unittest.TestCase):
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'TestMapper.testName']
     unittest.main()
+
