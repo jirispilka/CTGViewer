@@ -35,11 +35,11 @@ class ConfigIni:
         self.__ini_defaults[EnumIniVar.lastUsedDirFiles] = ' '
         # self.__ini_defaults[EnumIniVar.dataBrowserSelectedAttributes] = 'pH, BDecf'
         self.__ini_defaults[EnumIniVar.dataBrowserSelectedAttributes] = ''
-        # self.__ini_defaults[EnumIniVar.paperformat] = EnumPaperFormat.US
-        # self.__ini_defaults[EnumIniVar.annotationToolbarAlignR] = True
+        self.__ini_defaults[EnumIniVar.paperformat] = EnumPaperFormat.US
+        self.__ini_defaults[EnumIniVar.annotationToolbarAlignR] = True
         # self.__ini_defaults[EnumIniVar.caliperVisible] = True
-        self.__ini_defaults[EnumIniVar.paperformat] = EnumPaperFormat.EU
-        self.__ini_defaults[EnumIniVar.annotationToolbarAlignR] = False
+        # self.__ini_defaults[EnumIniVar.paperformat] = EnumPaperFormat.EU
+        # self.__ini_defaults[EnumIniVar.annotationToolbarAlignR] = False
         self.__ini_defaults[EnumIniVar.caliperVisible] = False
         self.__ini_defaults[EnumIniVar.caliperFHR] = True
         self.__ini_defaults[EnumIniVar.caliperTOCO] = True

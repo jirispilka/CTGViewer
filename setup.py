@@ -24,7 +24,13 @@ if os.path.exists(OUT_DIR):
     shutil.rmtree(OUT_DIR)
 
 # Process the includes, excludes and packages first
-includefiles = [os.path.join(BASE_DIR,'win32/vcredist_x86.exe')]  # include exe file of vcredist_x86.exe
+# include exe file of vcredist_x86.exe
+# include _ufuncs, libifcoremd, libmmd otherwise unable to start
+# info: http://stackoverflow.com/questions/19633757/using-cx-freeze-with-scipy-scipy-special-ufuncs-py
+includefiles = [os.path.join(BASE_DIR, 'win32/vcredist_x86.exe'),
+                ('c:\\Python27\\Lib\\site-packages\\scipy\\special\\_ufuncs.pyd', '_ufuncs.pyd'),
+                ('c:\\Python27\\Lib\\site-packages\\numpy\\core\\libifcoremd.dll', 'libifcoremd.dll'),
+                ('c:\\Python27\\Lib\\site-packages\\numpy\\core\\libmmd.dll', 'libmmd.dll')]
 includes = ["scipy.io.matlab.streams", "numpy.core.multiarray"]
 excludes = ['tcl', 'Tkinter']
 packages = ["reportlab", "scipy"]
