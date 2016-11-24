@@ -15,8 +15,8 @@ import sys
 sys.path.append('../')
 
 try:
-    import Init
-    from LoadWriteData import EnumVariableName as Enum
+    # import Init
+    from Enums import EnumVariableName as Enum
     from LoadWriteData import LoadData
 except:
     raise Exception('Import error')
@@ -25,7 +25,7 @@ except:
 class TestReadWrite(unittest.TestCase):
 
     def setUp(self):
-        Init.init()
+        # Init.init()
         self._dataLoader = LoadData()
 
     def tearDown(self):

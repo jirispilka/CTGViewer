@@ -145,7 +145,7 @@ def remove_nans_at_begin_and_end(x):
 
 def generate_calib_signal(fs=4, sformat='EU'):
     """
-    Generate step function for caliabration of plots
+    Generate step function for calibration of plots
     """
 
     n1 = fs*60
