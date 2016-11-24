@@ -8,10 +8,10 @@
 # Licensed under the terms of the GNU GENERAL PUBLIC LICENSE
 # (see CTGViewer.py for details)
 
-import Common
-from Config import ConfigStatic
 import os
 import shutil
+import Common
+from Config import ConfigStatic
 from Logger import Logger
 
 

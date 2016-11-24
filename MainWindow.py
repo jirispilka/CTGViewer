@@ -598,8 +598,13 @@ class Main(QtGui.QMainWindow):
     def _export_to_pdf(self):
 
         if EnumVarName.fhr not in self._signal_data.keys():
-            self._log.info("Attemp to export to PDF without plotting any signal first")
-            return -1
+            self._log.info("Attempt to export to PDF without plotting any signal first")
+
+            msgbox = QtGui.QMessageBox()
+            msgbox.setText("There is no CTG to export!")
+            msgbox.setStandardButtons(QtGui.QMessageBox.Close)
+            msgbox.setIcon(QtGui.QMessageBox.Information)
+            return msgbox.exec_()
 
         # save annotations and prepare signals
         self._ann_check_unsaved_changes()

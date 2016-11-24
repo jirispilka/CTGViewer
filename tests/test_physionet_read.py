@@ -10,10 +10,15 @@
 
 import unittest
 import os
+import sys
+sys.path.append('../')
 
-from LoadWriteData import EnumVariableName as Enum
-from LoadWriteData import LoadData
-import Init
+try:
+    import Init
+    from LoadWriteData import EnumVariableName as Enum
+    from LoadWriteData import LoadData
+except:
+    raise Exception('Import error')
 
 
 class TestReadWrite(unittest.TestCase):
