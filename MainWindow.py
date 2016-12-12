@@ -89,7 +89,7 @@ class Main(QtGui.QMainWindow):
         self.ui.actionAnnToolbarAlign_right.setChecked(valr)
         self._toolbar_align()
 
-        self.ui.actionSent_annotations.setEnabled(False)
+        # self.ui.actionSent_annotations.setEnabled(False)
 
         self._create_connections()
 
@@ -231,7 +231,7 @@ class Main(QtGui.QMainWindow):
         self.connect(self.ui.actionData_browser, QtCore.SIGNAL('triggered()'), self._dock_databrowse_toggle)
         self.connect(self.ui.dockDataBrowser, QtCore.SIGNAL("visibilityChanged(bool)"),
                      self._dock_databrowse_visibility)
-        self.connect(self.ui.actionAnnToolbarVisible, QtCore.SIGNAL('triggered()'), self._toolbar_ann_toogle)
+        self.connect(self.ui.actionAnnToolbarVisible, QtCore.SIGNAL('triggered()'), self._toolbar_ann_toggle)
         self.connect(self.ui.toolBar, QtCore.SIGNAL('visibilityChanged(bool)'), self._toolbar_ann_visibility)
         self.connect(self.ui.actionAnnToolbarAlign_right, QtCore.SIGNAL('triggered()'), self._toolbar_align)
 
@@ -265,7 +265,7 @@ class Main(QtGui.QMainWindow):
         else:
             self.ui.dockDataBrowser.hide()
 
-    def _toolbar_ann_toogle(self):
+    def _toolbar_ann_toggle(self):
         """ Set toolbar visible  or invisible  """
         b = True if self.ui.actionAnnToolbarVisible.isChecked() else False
         self.ui.toolBar.setVisible(b)
@@ -667,7 +667,7 @@ class Main(QtGui.QMainWindow):
 
 
 def parse_cmd_args():
-    parser = argparse.ArgumentParser(description='ctgViewer -- browsing and viewing CTU-UHB database')
+    parser = argparse.ArgumentParser(description='CTGViewer -- browsing and viewing CTU-UHB database')
     parser.add_argument('-p', '--physionet-file', help='Input file in the physionet format', required=False)
     parser.add_argument('-m', '--matlab-file', help='Input file in the matlab format', required=False)
     parser.add_argument('-f', '--folder', help='Input folder for browsing', required=False)

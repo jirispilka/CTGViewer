@@ -173,7 +173,7 @@ class Annotator:
                     note = self.check_str(s[7])
 
                     if curve_type not in dict_enum_action:
-                        raise Exception('Unsuported annotation type')
+                        raise Exception('Unsupported annotation type')
 
                     if curve_type == EnumAnnType.note:
                         marker = PyQwtPlotMarkerAnnotator(parent_name, curve_type, x_from, x_to, None, None, note)
