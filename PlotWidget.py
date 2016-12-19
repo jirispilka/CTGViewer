@@ -89,7 +89,7 @@ class PlotWidget(QWidget):
         self.tocoPlot.plot(time_samples, toco, timestring)
         # self.navPlot.plot(time_samples, fhr, timestring)
 
-        ''' FHR + TOCO for navigation plot  - artefacts are problem here'''
+        ''' FHR + TOCO for navigation plot  - artifacts are problem here'''
         # offset = self.navPlot.get_toco_offset()
         # x1= fhr.copy()
         # x1[x1 == 0] = -100
@@ -100,7 +100,7 @@ class PlotWidget(QWidget):
         # self.navPlot.plot(time_samples, x1+50, timestring)
         # self.navPlot.plot(time_samples, toco, timestring)
 
-        ''' Downsamplig for navigation plot. Need to interpolate artefacts '''
+        ''' Downsampling for navigation plot. Need to interpolate artifacts '''
         fs = self.fhrPlot.get_sampling_freq()
         fs_nav = ConfigStatic.navigation_plot_downsample_fs
         ndecimate = int(fs/fs_nav)
@@ -123,15 +123,15 @@ class PlotWidget(QWidget):
             x1 = np.hstack((x1, gap_at_end))
 
         # downsample
-        x1 = decimate(x1, ndecimate, zero_phase=True)
-        x2 = decimate(x2, ndecimate, zero_phase=True)
+        x1 = decimate(x1, ndecimate)
+        x2 = decimate(x2, ndecimate)
 
         # create new time samples and time string
         time_string_resampled = samples2time(len(x1), fs_nav)
         # time_samples = range(0, len(fhr), ndecimate)
         time_samples = time_samples[::ndecimate]
 
-        # make invisible those values that were interpolated across artefacts (0 or -1)
+        # make invisible those values that were interpolated across artifacts (0 or -1)
         ind = np.where(np.logical_or(x1_fhr == 0, x1_fhr == -1))[0]
         for i in ind:
             ii = int(i/ndecimate)
