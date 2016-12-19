@@ -11,15 +11,20 @@
 
 from PyQt4.QtGui import QApplication as App
 from PyQt4.QtCore import QTime, pyqtSignal, pyqtSlot, QSignalMapper
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter, A4, landscape, cm
-from reportlab.lib import colors
-from reportlab.pdfbase.pdfmetrics import stringWidth
 import os
 import logging
 import time
 
-# from reportlab.pdfgen.canvas import
+try:
+    from reportlab.pdfgen import canvas
+    from reportlab.lib.pagesizes import letter, A4, landscape, cm
+    from reportlab.lib import colors
+    from reportlab.pdfbase.pdfmetrics import stringWidth
+    REPORTLAB_IMPORTED = True
+
+except ImportError:
+    REPORTLAB_IMPORTED = False
+
 
 from ExportPdfUI import Ui_ExportToPdf
 from Common import samples2time, time_locator
@@ -51,6 +56,7 @@ class ExportToPdfForm(QtGui.QWidget):
         self.ui = Ui_ExportToPdf()
         self.ui.setupUi(self)
 
+        self.reportlab_imported = REPORTLAB_IMPORTED
         self.cprint = Print()
 
         self.btnSave = self.ui.buttonBox.button(Qt.QDialogButtonBox.Save)

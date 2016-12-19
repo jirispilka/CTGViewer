@@ -109,7 +109,10 @@ class Main(QtGui.QMainWindow):
         self.msgbox_delete.setDefaultButton(QtGui.QMessageBox.Save)
         self.msgbox_delete.setIcon(QtGui.QMessageBox.Warning)
 
-        # self.ui.actionExport_to_PDF.setEnabled(False)
+        if self._export_to_pdf_form.reportlab_imported:
+            self.ui.actionExport_to_PDF.setEnabled(True)
+        else:
+            self.ui.actionExport_to_PDF.setEnabled(False)
 
         self._process_cmd_args(args)
 
