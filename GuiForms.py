@@ -307,7 +307,8 @@ class MetainfoFileConvertWorker(Qt.QObject):
         self._metainfo_md5 = ClinInfoForm.metainfofile_md5sum
         self._stop = False
 
-    def get_md5sum(self, files):
+    @staticmethod
+    def get_md5sum(files):
 
         md5 = hashlib.md5()
         for f in files:
@@ -322,7 +323,7 @@ class MetainfoFileConvertWorker(Qt.QObject):
 
         :param dir_dest:
         :param files:
-        :return:
+        :return: True or False
         """
 
         sfile_metainfo = os.path.join(dir_dest, self._metainfo)
@@ -338,9 +339,9 @@ class MetainfoFileConvertWorker(Qt.QObject):
 
         # read md5sum from file
         with open(sfile_metainfo_md5, 'r') as fr:
-            md5expexted = fr.readline()
+            md5expected = fr.readline()
 
-        return md5expexted == md5sum
+        return md5expected == md5sum
 
     def metainfo_md5sum_update(self, dir_dest, files):
         """
@@ -929,9 +930,9 @@ def main():
     app = QtGui.QApplication(sys.argv)
     # window = ConvertFileForm()
     # window = DownoladDbForm()
-    winwow = AnnShowHide()
-    window.show()
-    sys.exit(app.exec_())
+    # winwow = AnnShowHide()
+    # window.show()
+    # sys.exit(app.exec_())
 
     # r = ConvertFileWorker()
     # r.metainfo_read_csv('/home/jirka/data/igabrno/CTU_UHB_physionet')

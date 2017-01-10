@@ -24,7 +24,6 @@ from Config import ConfigStatic, ConfigIni
 from GuiForms import MetainfoFileConvertWorker
 from LoadWriteData import LoadData
 from DataBrowserUI import Ui_DataBrowser
-# from DataBrowserSelectAttrForm import DataBrowserSelectAttrForm
 
 bWriteStageIIcorrect = False
 
@@ -48,15 +47,15 @@ class DataBrowserForm(QtGui.QWidget):
         # self.setMinimumSize(300, 100)
 
         # CONFIG
-        self._configIni = config_ini or ConfigIni()
+        self._config_ini = config_ini or ConfigIni()
 
         self._dataLoader = LoadData()
 
-        self._sourceDir = ''
+        self._source_dir = ''
         self._filesExtDat = '.dat'
         self._filesExtHea = '.hea'
         self._filesExtMat = '.mat'
-        self._filesExt = ''
+        self._files_ext = ''
         self._nr_files_metainfo = 0
         self._metainfo_handler = MetainfoFileConvertWorker()
 
@@ -94,10 +93,10 @@ class DataBrowserForm(QtGui.QWidget):
             return -1
 
     def get_source_dir(self):
-        return self._sourceDir
+        return self._source_dir
 
     def set_source_dir(self, sdir):
-        self._sourceDir = sdir
+        self._source_dir = sdir
 
     def set_attributes_dir_and_load(self, attributes, sdir):
         """
@@ -107,8 +106,8 @@ class DataBrowserForm(QtGui.QWidget):
         :param sdir:
         """
         self.set_source_dir(sdir)
-        afileshea = sorted(Common.get_files_with_ext_mask(self._sourceDir, self._filesExtHea))
-        afilesmat = sorted(Common.get_files_with_ext_mask(self._sourceDir, self._filesExtMat))
+        afileshea = sorted(Common.get_files_with_ext_mask(self._source_dir, self._filesExtHea))
+        afilesmat = sorted(Common.get_files_with_ext_mask(self._source_dir, self._filesExtMat))
 
         if len(afileshea) > 0 and len(afilesmat) > 1:
             # self.msgBoxError.setIcon(QtGui.QMessageBox.)
@@ -121,10 +120,10 @@ class DataBrowserForm(QtGui.QWidget):
 
         if len(afileshea) > 0:
             afiles = afileshea
-            self._filesExt = self._filesExtDat
+            self._files_ext = self._filesExtDat
         else:
             afiles = afilesmat
-            self._filesExt = self._filesExtMat
+            self._files_ext = self._filesExtMat
 
         if self._set_model(attributes, afiles) != 0:
             return
@@ -186,22 +185,22 @@ class DataBrowserForm(QtGui.QWidget):
         self._selected_att = selected_att
 
         if bWriteStageIIcorrect:
-            self._metainfofile_stage2_corr = os.path.join(self._sourceDir, self._metainfofile_stage2_corr)
+            self._metainfofile_stage2_corr = os.path.join(self._source_dir, self._metainfofile_stage2_corr)
 
         if afiles is None:
-            if self._sourceDir is None or self._sourceDir == "":
+            if self._source_dir is None or self._source_dir == "":
                 return -1
         else:
             self._progress_dialog.close()
-            if not self._metainfo_handler.metainfo_up_to_date(self._sourceDir, afiles):
+            if not self._metainfo_handler.metainfo_up_to_date(self._source_dir, afiles):
                 self._progress_dialog.setRange(0, len(afiles))
                 self._progress_dialog.setValue(0)
                 self._progress_dialog.open()
 
-                if self._metainfo_handler.metainfo_create_csv(self._sourceDir, afiles) == -1:
+                if self._metainfo_handler.metainfo_create_csv(self._source_dir, afiles) == -1:
                     return -1
 
-        csv_list = self._metainfo_handler.metainfo_read_csv(self._sourceDir)
+        csv_list = self._metainfo_handler.metainfo_read_csv(self._source_dir)
         nrfiles = len(csv_list)
 
         self._model = QtGui.QStandardItemModel(nrfiles, 1)
@@ -323,8 +322,8 @@ class DataBrowserForm(QtGui.QWidget):
     def _plot_file_emit(self, fname):
 
         # fname = Common.get_filename_without_ext(fname)
-        fname = str(fname) + self._filesExt
-        fname = os.path.join(self._sourceDir, fname)
+        fname = str(fname) + self._files_ext
+        fname = os.path.join(self._source_dir, fname)
         self.plotFileSignal.emit(QtCore.QString(fname))
 
     def _table_double_click(self):

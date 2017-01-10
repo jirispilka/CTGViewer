@@ -24,23 +24,21 @@ Reference
 
 # system imports
 import argparse
-import logging
-import os
-import sys
-from PyQt4 import QtCore, QtGui
-from PyQt4.QtCore import pyqtSignal, pyqtSlot, QSignalMapper
-# local imports
-from MainWindowUI import Ui_MainWindow
-from GuiForms import *
-from Config import ConfigStatic, ConfigIni
-from LoadWriteData import LoadData
+from PyQt4 import QtCore
+
+from PyQt4.QtCore import pyqtSlot, QSignalMapper
+
+import Common
 from ClinInfoForm import ClinInfo
+from Config import ConfigStatic, ConfigIni
 from DataBrowserForm import DataBrowserForm
 from DataBrowserSelectAttrForm import DataBrowserSelectAttrForm
-from Init import init
 from Enums import EnumAnnType, EnumPaperFormat, EnumVariableName as EnumVarName, EnumIniVar
+from GuiForms import *
+from Init import init
+from LoadWriteData import LoadData
+from MainWindowUI import Ui_MainWindow
 from Print import ExportToPdfForm
-import Common
 
 DEBUG_PROFILE = False
 DEBUG_FIGO_ANN = False
@@ -473,8 +471,13 @@ class Main(QtGui.QMainWindow):
             self.ui.PlotWidget.plot_stage2_line(val)
             self.ui.PlotWidget.updatePlots()
 
+        val = int(adata.get('obsolete_ind_stageII'))
+        if val != -1 and val is not None:
+            self.ui.PlotWidget.plot_stage1_line(val)
+            self.ui.PlotWidget.updatePlots()
+
         val = adata.get('Pos_Birth')
-        print val
+        # print val
         if val != -1 and val is not None:
             self.ui.PlotWidget.plot_birth_line(val)
             self.ui.PlotWidget.updatePlots()

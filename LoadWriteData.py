@@ -436,10 +436,10 @@ class LoadData:
         """
         var_list_in = ['pH', 'BDecf', 'dataLengthOrig_min', 'fs', 'sig2End_min', 'sig2End_samp', 'fileNameMat',
                        'apgar1', 'apgar5', 'stageII_min', 'stageII_samp', 'operativeSFA', 'birthWeight', 'sexM',
-                       'resuscitationWard', 'NICU', 'moveToSFA']
+                       'resuscitationWard', 'NICU', 'moveToSFA', 'obsolete_ind_stageII']
         var_list_out = ['pH', 'BDecf', 'dataLengthOrig_min', 'fs', 'Sig2Birth', 'sig2End_samp', 'name',
                         'Apgar1', 'Apgar5', 'IIstage', 'Pos_IIst', 'ClinAnnotation', 'Weight_g', 'Sex',
-                        'resuscitationWard', 'NICU', 'NICUacidosis']
+                        'resuscitationWard', 'NICU', 'NICUacidosis', 'obsolete_ind_stageII']
 
         datadict = dict()
 
@@ -451,7 +451,8 @@ class LoadData:
                 temp = cdata[s]
                 # print '{0},{1}'.format(temp, temp.dtype)
             except Exception:
-                # self._log.info('Field {0} does not exists in Matlab structure'.format(s))
+                self._log.info('Field {0} does not exists in Matlab structure'.format(s))
+                datadict[sout] = 0
                 continue
 
             temp = np.ravel(temp[0])
@@ -466,7 +467,7 @@ class LoadData:
             else:
                 datadict[sout] = str(temp[0])
 
-                # print datadict[sout]
+            # print datadict[sout]
 
         if 'IIstage' in datadict:
             # fix the position of second stage
