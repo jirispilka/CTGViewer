@@ -62,6 +62,8 @@ dictClinInfoFullNames['resuscitationWard'] = 'Resuscitation on delivery ward'
 dictClinInfoFullNames['NICU'] = 'NICU (yes/no)'
 dictClinInfoFullNames['NICUacidosis'] = 'NICU (acidosis)'
 dictClinInfoFullNames['Note'] = 'Note'
+# dictClinInfoFullNames['ind_stageII'] = 'ind_stageII'  # temporary
+# dictClinInfoFullNames['obsolete_ind_stageII'] = 'obsolete_ind_stageII'  # temporary
 
 metainfofile = '.metainfo.csv'
 metainfofile_md5sum = '.metainfo.md5sum'

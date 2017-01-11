@@ -84,6 +84,11 @@ class DataBrowserForm(QtGui.QWidget):
             import datetime
             self._metainfofile_stage2_corr = 'metainfo_corrected_' + str(datetime.datetime.utcnow()) + '.csv'
 
+    @staticmethod
+    def __get_val_str(dictci, key):
+        if key in dictci:
+            return str(dictci[key])
+
     def _get_selected_row(self):
         item = self._table.selectedIndexes()
         try:
@@ -226,10 +231,6 @@ class DataBrowserForm(QtGui.QWidget):
             self._model.setHorizontalHeaderLabels(temp+self._selected_att)
         return 0
 
-    def __get_val_str(self, dictci, key):
-        if key in dictci:
-            return str(dictci[key])
-
     def _change_to_row(self, row):
 
         item = self._model.index(row, 0)
@@ -278,6 +279,7 @@ class DataBrowserForm(QtGui.QWidget):
                     fw.write('\n')
                 cnt += 1
 
+        # write the values
         with open(self._metainfofile_stage2_corr, 'a') as fw:
             for i in range(0, nr):
                 cnt = 1
