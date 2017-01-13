@@ -55,8 +55,8 @@ def compute_dist_ellipse(x1, x2, y1, y2, pos):
     """
     Compute distance to an ellipse
     """
-    centerx = x1 + (x2 - x1) / 2
-    centery = y1 + (y2 - y1) / 2
+    centerx = x1 + float(x2 - x1) / 2
+    centery = y1 + float(y2 - y1) / 2
 
     dcxcy = distance_to_point(pos, centerx, centery)  # center
     dcxy1 = distance_to_point(pos, centerx, y1)  # bottom

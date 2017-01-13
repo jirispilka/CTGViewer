@@ -89,6 +89,35 @@ class DataBrowserForm(QtGui.QWidget):
         if key in dictci:
             return str(dictci[key])
 
+    @staticmethod
+    def __get_value_by_type(dictci, key):
+        """
+
+        :param dictci: dict
+        :param key: str
+        :return:
+        """
+        assert isinstance(dictci, dict)
+        value = dictci.get(key, "")
+
+        tests = [
+            # (Type, Test)
+            (int, int),
+            (float, float)
+        ]
+
+        if value == 'nan' or value == 'NaN':
+            return str(value)
+
+        for typ, test in tests:
+            try:
+                test(value)
+                return typ(value)
+            except ValueError:
+                pass
+        # No match
+        return str(value)
+
     def _get_selected_row(self):
         item = self._table.selectedIndexes()
         try:
@@ -219,6 +248,7 @@ class DataBrowserForm(QtGui.QWidget):
             if len(self._selected_att) != 0 and self._selected_att[0] != '':
                 for att in self._selected_att:
                     val = self.__get_val_str(dictrow, att)
+                    # val = self.__get_value_by_type(dictrow, att)  # not working
                     self._model.setItem(irow, icol, QtGui.QStandardItem(val))
                     icol += 1
 
