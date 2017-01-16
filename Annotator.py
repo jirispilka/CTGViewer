@@ -132,7 +132,7 @@ class Annotator:
         self._dannotations_fhr = dict()
         self._dannotations_toco = dict()
 
-        if self.get_signal_annotated():
+        if self._get_signal_annotated():
             self._log.info("Loading annotation file: {0}".format(self._ann_file))
             bdosniff = True
 
@@ -158,10 +158,12 @@ class Annotator:
 
                     if len(s) != 8:
                         if len(s) == 5:
-                            self._log.warning("Annotations in OLD format!! {0}".format(s))
-                            continue
+                            raise Exception("Annotations in OLD format!! {0}".format(s))
+                            # self._log.warning("Annotations in OLD format!! {0}".format(s))
+                            # continue
                         else:
-                            self._log.warning("Annotations in wrong format!! {0}".format(s))
+                            raise Exception("Annotations in wrong format!! {0}".format(s))
+                            # self._log.warning("Annotations in wrong format!! {0}".format(s))
 
                     id_curve = str(s[0])
                     parent_name = str(s[1])
@@ -202,17 +204,31 @@ class Annotator:
 
         # return self._dannotations_fhr
 
-    def check_int(self, d):
+    def _get_signal_annotated(self):
+        b = Common.file_exists(self._ann_file) and Common.get_mumber_lines(self._ann_file) > 0
+        return b
+
+    @staticmethod
+    def check_int(d):
         if d == 'None':
             return None
         else:
             return int(d)
 
-    def check_str(self, s):
+    @staticmethod
+    def check_str(s):
         if s == 'None' or s == '\n':
             return ''
         else:
             return str(s)
+
+    def set_annotation_file(self, data_file):
+        """Set the annotation file."""
+
+        name = Common.get_filename_without_ext(data_file)
+
+        self._path = os.path.dirname(data_file)
+        self._ann_file = os.path.join(self._path, name + self._ann_extension)  # set annotation file
 
     def ann_file_load(self, data_file):
         """
@@ -222,16 +238,8 @@ class Annotator:
         :type data_file: str
         :return:
         """
-        name = Common.get_filename_without_ext(data_file)
-
-        self._path = os.path.dirname(data_file)
-        self._ann_file = os.path.join(self._path, name + self._ann_extension)  # set annotation file
-
+        self.set_annotation_file(data_file)
         self.__load_annotations()
-
-    def get_signal_annotated(self):
-        b = Common.file_exists(self._ann_file) and Common.get_mumber_lines(self._ann_file) > 0
-        return b
 
     def get_annotations_fhr(self):
         return self._dannotations_fhr
@@ -273,6 +281,7 @@ class Annotator:
             ann[curve.id] = c
 
         return ann
+
 
     def set_annotations(self, dann_fhr, dann_toco):
         self._dannotations_fhr = dann_fhr
