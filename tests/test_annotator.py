@@ -59,7 +59,7 @@ class TestAnnotator(unittest.TestCase):
 
     def test_load_comma_separated_annotations(self):
 
-        self.annotator.ann_file_load('files/ann_comma_format.ann')
+        self.annotator.ann_file_load(os.path.join('files', 'ann_comma_format.ann'))
         annotations_fhr = self.annotator.get_annotations_fhr()
 
         d = annotations_fhr['1']
@@ -75,14 +75,13 @@ class TestAnnotator(unittest.TestCase):
 
     def test_load_improper_annotations(self):
 
-        self.assertRaises(IOError, self.annotator.ann_file_load, 'files/ann_improper_old.ann')
-        self.assertRaises(IOError, self.annotator.ann_file_load, 'files/ann_improper_wrong.ann')
-        self.assertRaises(IOError, self.annotator.ann_file_load, 'files/ann_unsupported_type.ann')
-
+        self.assertRaises(IOError, self.annotator.ann_file_load, os.path.join('files', 'ann_improper_old.ann'))
+        self.assertRaises(IOError, self.annotator.ann_file_load, os.path.join('files', 'ann_improper_wrong.ann'))
+        self.assertRaises(IOError, self.annotator.ann_file_load, os.path.join('files', 'ann_unsupported_type.ann'))
 
     def test_load_annotation(self):
 
-        filemat = 'files/1001.mat'
+        filemat = os.path.join('files', '1001.mat')
 
         self.annotator.set_annotation_file(filemat)
         self.assertTrue(self.annotator._get_signal_annotated())
