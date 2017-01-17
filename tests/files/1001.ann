@@ -1,0 +1,9 @@
+1;fhr;basal;1;19200;145;145;
+2;fhr;baseline;9800;11800;125;125;
+3;fhr;recovery;1169;1562;149;149;
+# this is comment
+4;fhr;no_recovery;2991;3213;139;139;
+5;fhr;ellipsenote;8393;8742;101;142;TEST
+6;fhr;note;14545;14545;None;None;bad signal quality
+7;toco;ellipsenote;6037;6532;0;91;
+8;toco;excessive_ua;496;1550;55;55;
