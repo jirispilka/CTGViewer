@@ -57,6 +57,29 @@ class TestAnnotator(unittest.TestCase):
         self.assertDictEqual(self.annotator.get_annotations_fhr(), dict())
         self.assertDictEqual(self.annotator.get_annotations_toco(), dict())
 
+    def test_load_comma_separated_annotations(self):
+
+        self.annotator.ann_file_load('files/ann_comma_format.ann')
+        annotations_fhr = self.annotator.get_annotations_fhr()
+
+        d = annotations_fhr['1']
+        assert isinstance(d, PyQwtPlotCurveAnnotator)
+        self.assertEqual(d.id, '1')
+        self.assertEqual(d.get_parent_name(), EnumAnnType.plot_fhr)
+        self.assertEqual(d.get_curve_type(), EnumAnnType.basal)
+        self.assertEqual(d.x_from, 1)
+        self.assertEqual(d.x_to, 19200)
+        self.assertEqual(d.yval1, 145)
+        self.assertEqual(d.yval2, 145)
+        self.assertEqual(d.get_text(), '')
+
+    def test_load_improper_annotations(self):
+
+        self.assertRaises(IOError, self.annotator.ann_file_load, 'files/ann_improper_old.ann')
+        self.assertRaises(IOError, self.annotator.ann_file_load, 'files/ann_improper_wrong.ann')
+        self.assertRaises(IOError, self.annotator.ann_file_load, 'files/ann_unsupported_type.ann')
+
+
     def test_load_annotation(self):
 
         filemat = 'files/1001.mat'

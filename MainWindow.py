@@ -107,6 +107,11 @@ class Main(QtGui.QMainWindow):
         self.msgbox_delete.setDefaultButton(QtGui.QMessageBox.Save)
         self.msgbox_delete.setIcon(QtGui.QMessageBox.Warning)
 
+        self.msgbox_err = QtGui.QMessageBox()
+        self.msgbox_err.setStandardButtons(QtGui.QMessageBox.Ok)
+        self.msgbox_err.setDefaultButton(QtGui.QMessageBox.Ok)
+        self.msgbox_err.setIcon(QtGui.QMessageBox.Critical)
+
         if self._export_to_pdf_form.reportlab_imported:
             self.ui.actionExport_to_PDF.setEnabled(True)
         else:
@@ -461,7 +466,12 @@ class Main(QtGui.QMainWindow):
         self.ui.PlotWidget.plot(atimestamp, afhr, auc, time_string)
         # self.ui.PlotWidget.plot(atimestamp, afhr, auc)
 
-        self.ui.PlotWidget.ann_file_load_and_plot(sfile)
+        try:
+            self.ui.PlotWidget.ann_file_load_and_plot(sfile)
+        except IOError as ex:
+            self.msgbox_err.setText('A problem occurred when loading annotations for file: {0}'.format(sfile))
+            self.msgbox_err.setInformativeText(ex.message)
+            self.msgbox_err.exec_()
 
         self._signal_data = adata
         self.ui.actionExport_to_PDF.setEnabled(True)
@@ -471,7 +481,8 @@ class Main(QtGui.QMainWindow):
             self.ui.PlotWidget.plot_stage2_line(val)
             self.ui.PlotWidget.updatePlots()
 
-        val = int(adata.get('obsolete_ind_stageII'))
+        val = adata.get('obsolete_ind_stageII', None)
+        val = int(val) if val is not None else val
         if val != -1 and val is not None:
             self.ui.PlotWidget.plot_stage1_line(val)
             self.ui.PlotWidget.updatePlots()

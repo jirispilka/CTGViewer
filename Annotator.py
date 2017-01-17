@@ -158,11 +158,11 @@ class Annotator:
 
                     if len(s) != 8:
                         if len(s) == 5:
-                            raise Exception("Annotations in OLD format!! {0}".format(s))
+                            raise IOError("Annotations in OLD format!! {0}".format(s))
                             # self._log.warning("Annotations in OLD format!! {0}".format(s))
                             # continue
                         else:
-                            raise Exception("Annotations in wrong format!! {0}".format(s))
+                            raise IOError("Annotations in wrong format!! {0}".format(s))
                             # self._log.warning("Annotations in wrong format!! {0}".format(s))
 
                     id_curve = str(s[0])
@@ -175,7 +175,7 @@ class Annotator:
                     note = self.check_str(s[7])
 
                     if curve_type not in dict_enum_action:
-                        raise Exception('Unsupported annotation type')
+                        raise IOError('Unsupported annotation type')
 
                     if curve_type == EnumAnnType.note:
                         marker = PyQwtPlotMarkerAnnotator(parent_name, curve_type, x_from, x_to, None, None, note)
