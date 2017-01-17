@@ -386,7 +386,11 @@ class LoadData:
         write data into csv file.
         the function is not using the python csv module because of unable to setup float precision
         """
-        f = open(infile, 'w+')
+
+        if isinstance(infile, file):
+            f = infile
+        else:
+            f = open(infile, 'w+')
 
         # write header
         if sheader is None:
@@ -405,7 +409,9 @@ class LoadData:
             s = '{0},{1},{2}\n'.format(int(timestamp[i]), round(fhr[i], 2), round(uc[i], 2))
             f.write(s)
 
-        f.close()
+        if f != infile:
+            f.close()
+
         return data
 
     def __parse_number(self, svalue=None):

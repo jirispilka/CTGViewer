@@ -8,6 +8,7 @@
 # Licensed under the terms of the GNU GENERAL PUBLIC LICENSE
 # (see CTGViewer.py for details)
 
+import tempfile
 import unittest
 import os
 import numpy as np
@@ -45,10 +46,11 @@ class TestReadWrite(unittest.TestCase):
 
         self.assertEqual(fhr[0], 150.5)
         self.assertEqual(fhr[3], 151.25)
-        self.assertEqual(fhr[18978], 94.75)
+        self.assertEqual(fhr[54], 147.5)
 
         self.assertEqual(uc[0], 7.0)
-        self.assertEqual(uc[1], 8.5)
+        self.assertEqual(uc[3], 7.5)
+        self.assertEqual(uc[54], 10.5)
 
     def test_write_read_csv(self):
 
@@ -68,24 +70,14 @@ class TestReadWrite(unittest.TestCase):
         data_all[Enum.fhr] = t2
         data_all[Enum.uc] = t3
 
-        file1 = os.path.join('files', 'test_write_read.csv')
-        self._dataLoader.write_csv_file(file1, data_all)
+        outfile = tempfile.TemporaryFile()
+        self._dataLoader.write_csv_file(outfile, data_all)
 
-        data_read, dummy = self._dataLoader.read_csv_file(file1)
+        outfile.seek(0)
+        content = outfile.read()
 
-        timestamp = data_read[Enum.timestamp]
-        fhr = data_read[Enum.fhr]
-        uc = data_read[Enum.uc]
-
-        # print data_read[0,0], self._data_write[0,0]
-        self.assertEqual(timestamp[0, 0], t1[0, 0])
-        self.assertEqual(timestamp[1, 0], t1[1, 0])
-
-        self.assertEqual(fhr[0], t2[0, 0])
-        self.assertEqual(fhr[1], t2[1, 0])
-
-        self.assertEqual(uc[0], t3[0, 0])
-        self.assertEqual(uc[1], t3[1, 0])
+        print content
+        self.assertEqual('timestamp,fhr,uc\n1,155.5,7.8\n2,155.0,8.0\n',content)
 
     def test_read_matlab(self):
 
