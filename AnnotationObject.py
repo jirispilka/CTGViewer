@@ -152,7 +152,8 @@ class AnnotationObject(object):
         else:
             return abs(self.x_to - self.x_from) < self.__too_small_limit
 
-    def text_wrap(self, s):
+    @staticmethod
+    def text_wrap(s):
         w = 140
         s = s.replace('\n', ' ')
         s = textwrap.fill(s, w / 8 + 1)
