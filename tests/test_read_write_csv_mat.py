@@ -20,7 +20,7 @@ try:
     from Enums import EnumVariableName as Enum
     from LoadWriteData import LoadData
 except:
-    raise Exception('Import error')
+    raise ImportError('Import error')
 
 
 class TestReadWrite(unittest.TestCase):

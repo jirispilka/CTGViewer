@@ -157,6 +157,12 @@ class Annotator:
                     s = line.split(self._sep_items)
 
                     if len(s) != 8:
+
+                        # there is a blank line
+                        if len(s) == 1:
+                            if s[0] == '\n':
+                                continue
+
                         if len(s) == 5:
                             raise IOError("Annotations in OLD format!! {0}".format(s))
                             # self._log.warning("Annotations in OLD format!! {0}".format(s))
@@ -222,6 +228,10 @@ class Annotator:
         else:
             return str(s)
 
+    def get_annotation_file(self):
+        """Return annotation file name"""
+        return self._ann_file
+
     def set_annotation_file(self, data_file):
         """Set the annotation file."""
 
@@ -264,6 +274,8 @@ class Annotator:
 
     def get_annotations_copy(self):
 
+        DeprecationWarning('Use get_annotations_copy_all instead.')
+
         ann = dict()
         for key, curve in self._dannotations_fhr.iteritems():
             name = curve.get_parent_name()
@@ -281,7 +293,6 @@ class Annotator:
             ann[curve.id] = c
 
         return ann
-
 
     def set_annotations(self, dann_fhr, dann_toco):
         self._dannotations_fhr = dann_fhr

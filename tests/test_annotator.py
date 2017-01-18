@@ -12,11 +12,16 @@ import unittest
 import os
 import sys
 from PyQt4.QtCore import QPointF
+import tempfile
 sys.path.append('../')
 
-from Annotator import Annotator, distance_to_point, compute_dist_ellipse, compute_dist_caliper
-from AnnotationObject import PyQwtPlotCurveAnnotator, PyQwtPlotFloatingBaseline, PyQwtPlotEllipseAnnotator, PyQwtPlotMarkerAnnotator
-from Enums import EnumAnnType
+try:
+    from Annotator import Annotator, distance_to_point, compute_dist_ellipse, compute_dist_caliper
+    from AnnotationObject import PyQwtPlotCurveAnnotator, PyQwtPlotFloatingBaseline, PyQwtPlotEllipseAnnotator, \
+        PyQwtPlotMarkerAnnotator
+    from Enums import EnumAnnType
+except:
+    raise ImportError('Import error')
 
 
 class TestAnnotator(unittest.TestCase):
@@ -178,6 +183,46 @@ class TestAnnotator(unittest.TestCase):
         self.assertEqual(d.yval1, 55)
         self.assertEqual(d.yval2, 55)
         self.assertEqual(d.get_text(), '')
+
+    def test_save_annotations(self):
+
+        ann = dict()
+        ann_expected = dict()
+
+        dummy, data_file = tempfile.mkstemp('.mat')
+        self.annotator.set_annotation_file(data_file)
+        ann_file = self.annotator.get_annotation_file()
+
+        ann['1'] = PyQwtPlotCurveAnnotator(EnumAnnType.plot_fhr, EnumAnnType.basal, 1, 10, 150, 150)
+        ann['2'] = PyQwtPlotCurveAnnotator(EnumAnnType.plot_fhr, EnumAnnType.baseline, 2, 11, 155, 155)
+        ann['3'] = PyQwtPlotCurveAnnotator(EnumAnnType.plot_fhr, EnumAnnType.recovery, 3, 12, 140, 140)
+        ann['4'] = PyQwtPlotCurveAnnotator(EnumAnnType.plot_fhr, EnumAnnType.no_recovery, 4, 14, 110, 110)
+        ann['5'] = PyQwtPlotMarkerAnnotator(EnumAnnType.plot_fhr, EnumAnnType.note, 1, 1, None, None, 'test_note')
+        ann['6'] = PyQwtPlotEllipseAnnotator(EnumAnnType.plot_fhr, EnumAnnType.ellipsenote, 1, 10, 1, 10, 'test ellipse')
+        ann['7'] = PyQwtPlotCurveAnnotator(EnumAnnType.plot_toco, EnumAnnType.excessive_ua, 5, 16, 56, 50)
+
+        ann_expected['1'] = '1;fhr;basal;1;10;150;150;\n'
+        ann_expected['2'] = '2;fhr;baseline;2;11;155;155;\n'
+        ann_expected['3'] = '3;fhr;recovery;3;12;140;140;\n'
+        ann_expected['4'] = '4;fhr;no_recovery;4;14;110;110;\n'
+        ann_expected['5'] = '5;fhr;note;1;1;None;None;test_note\n'
+        ann_expected['6'] = '6;fhr;ellipsenote;1;10;1;10;test ellipse\n'
+        ann_expected['7'] = '7;toco;excessive_ua;5;16;56;56;\n'
+
+        for key in ann.iterkeys():
+            temp = dict()
+            temp[key] = ann[key]
+            self.annotator.set_annotations_and_save(temp, dict())
+
+            with open(ann_file, 'r') as fr:
+                c = fr.read()
+                self.assertEqual(c, ann_expected[key])
+
+            if os.path.exists(self.annotator.get_annotation_file()):
+                os.remove(self.annotator.get_annotation_file())
+
+        if os.path.exists(data_file):
+            os.remove(data_file)
 
 
 if __name__ == "__main__":
