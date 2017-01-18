@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Created on Oct 15, 2013
+# Created on Jan 18, 2017
 # @authors: Jiri Spilka
 # http://people.ciirc.cvut.cz/~spilkjir
 # @2015, CIIRC, Czech Technical University in Prague

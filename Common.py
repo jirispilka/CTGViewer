@@ -125,20 +125,20 @@ def remove_nans_at_begin_and_end(x):
 
     # if a signal begins or ends with NaNs --> do not interpolate there
     gap_at_begin = []
-    ind_samples1 = np.where(x != 0)[0]
+    # ind_samples = np.where(x != 0)[0]
+    ind_samples = np.where(np.logical_and(x != 0, ~np.isnan(x)))[0]
 
-    if len(ind_samples1) > 0:
-        if ind_samples1[0] != 0: # if there is no signal at position 0
-            gap_at_begin = np.arange(0, ind_samples1[0])
+    if len(ind_samples) > 0:
+        if ind_samples[0] != 0: # if there is no signal at position 0
+            gap_at_begin = np.arange(0, ind_samples[0])
 
     gap_at_end = []
-    ind_samples2 = np.where(x != 0)[0]
-    if len(ind_samples2) > 0:
-        if ind_samples2[-1] != len(x):
-            gap_at_end = np.arange(ind_samples2[-1]+1, len(x))
+    if len(ind_samples) > 0:
+        if ind_samples[-1] != len(x):
+            gap_at_end = np.arange(ind_samples[-1]+1, len(x))
 
-    ifrom = ind_samples1[0]
-    ito = ind_samples2[-1]+1
+    ifrom = ind_samples[0]
+    ito = ind_samples[-1]+1
     x_out = x[ifrom:ito]
     return x_out, gap_at_begin, gap_at_end, ifrom, ito
 

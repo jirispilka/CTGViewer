@@ -213,8 +213,6 @@ class PyQwtNavigationPlotHighlight(QwtPlotCurve):
         minyview = self.__p_nav_plot.viewYMinSample()
         yminmarginpx, ymaxmarginpx = self.__p_nav_plot.getMarginsYPx()
 
-
-
         py1 = ymap.transform(minyview) + yminmarginpx
         py2 = ymap.transform(maxyview) - ymaxmarginpx
 

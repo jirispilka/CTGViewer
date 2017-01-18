@@ -70,8 +70,7 @@ class PyQwtWidgetGui(Qwt.QwtPlot):
         self._log.info('passed')
 
         self.__name = name
-
-        self._fontApp = QtGui.QFont()
+        self._font_app = QtGui.QFont()
 
         dpi = 96
         self._dpi2px = dpi*(1/2.54)
@@ -147,8 +146,8 @@ class PyQwtWidgetGui(Qwt.QwtPlot):
         # self.setYAxis()
 
     def __set_axis_app_font(self):
-        self.setAxisFont(Qwt.QwtPlot.xBottom, self._fontApp)
-        self.setAxisFont(Qwt.QwtPlot.yLeft, self._fontApp)
+        self.setAxisFont(Qwt.QwtPlot.xBottom, self._font_app)
+        self.setAxisFont(Qwt.QwtPlot.yLeft, self._font_app)
 
     def clear_plot(self):
         """
@@ -438,7 +437,10 @@ class PyQwtWidgetGui(Qwt.QwtPlot):
         self.signal_ann_changed.emit()
 
     def ann_plot_curves(self, bplot=True):
-        """ Plot all annotations (basal, baseline, recovery, notes) """
+        """ Plot all annotations (basal, baseline, recovery, notes)
+        The curve is an object inherited from Qwt library.
+        Qwt thus performs the actual drawing
+        """
 
         for key, curve in self.__d_ann_all_curves.iteritems():
 
@@ -647,7 +649,7 @@ class PyQwtWidgetGui(Qwt.QwtPlot):
 
     def ylabel(self, text=""):
         """ set the y axis label. The font is based on application font """
-        font = self._fontApp
+        font = self._font_app
         font.setBold(True)
         qtext = Qwt.QwtText(text)
         qtext.setFont(font)
@@ -727,7 +729,7 @@ class PyQwtWidgetGui(Qwt.QwtPlot):
         :rtype: int,int
         """
         p1, p2 = self._getMarginsPx(Qwt.QwtPlot.xBottom)
-        return p2,p1
+        return p2, p1
 
     def _getMarginsPx(self, naxisid):
         """
@@ -817,7 +819,7 @@ class PyQwtWidgetGui(Qwt.QwtPlot):
             self.setAxisScale(Qwt.QwtPlot.xBottom, self._minTime, self._maxTime , 0)
 
         else:
-            # pokud zalozim novy objekt QwtScaleDiv() musim pouzit konstruktor, kde se natavuji parametry
+            # pokud zalozim novy objekt QwtScaleDiv() musim pouzit konstruktor, kde se nastavuji parametry
             # jinak bude vzdt scaleDiv false
             scalediv = self.axisScaleDiv(Qwt.QwtScaleDiv.MajorTick)
             # print scaleDiv.isValid()
