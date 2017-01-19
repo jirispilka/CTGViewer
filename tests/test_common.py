@@ -40,15 +40,15 @@ class TestCommon(unittest.TestCase):
 
     def test_remove_nans_at_begin_and_end(self):
 
-        x = np.array([0, 0, 10, 20, 30, 40, 50, 0, 0, 0])
+        x = np.array([0, 0, 10, 20, 30, 0, 40, 50, 0, 0, 0])
         x_out, gap_at_begin, gap_at_end, ifrom, ito = remove_nans_at_begin_and_end(x)
 
-        self.assertTrue(np.alltrue(x_out == np.array([10, 20, 30, 40, 50])))
+        self.assertTrue(np.alltrue(x_out == np.array([10, 20, 30, 0, 40, 50])))
         self.assertTrue(np.alltrue(gap_at_begin == np.arange(0, 2)))
-        self.assertTrue(np.alltrue(gap_at_end == np.arange(7, 10)))
+        self.assertTrue(np.alltrue(gap_at_end == np.arange(8, 11)))
 
         self.assertEqual(ifrom, 2)
-        self.assertEqual(ito, 7)
+        self.assertEqual(ito, 8)
 
         x = np.array([np.nan, np.nan, 10, 20, 30, 40, 50, np.nan, np.nan, np.nan])
         x_out, gap_at_begin, gap_at_end, ifrom, ito = remove_nans_at_begin_and_end(x)
@@ -59,4 +59,40 @@ class TestCommon(unittest.TestCase):
 
         self.assertEqual(ifrom, 2)
         self.assertEqual(ito, 7)
+
+    def test_samples2time(self):
+
+        atime = samples2time(10, 1)
+        self.assertEqual(atime[0], '00:00:01:000')
+        self.assertEqual(atime[4], '00:00:05:000')
+
+        atime = samples2time(10, 1, time_begin='01:10:10:000')
+        self.assertEqual(atime[6], '01:10:17:000')
+
+    def test_time_locator(self):
+
+        timestring = None
+        self.assertIsNone(time_locator(timestring, 0, 0, 0, 0))
+
+        timestring = ['00:00:00:000', '00:30:00:000', '01:00:00:000', '01:30:00:000', '02:00:00:000']
+        ticks_expected = [0.0, 2.0, 4.0]
+
+        # guess hour location
+        ticks = time_locator(timestring, -1, -1, 5, 1/float(30 * 60))
+
+        for t1, t2 in zip(ticks, ticks_expected):
+            self.assertEqual(t1, t2)
+
+        # specify hour locator
+        ticks = time_locator(timestring, -1, 1, 5, 1 / float(30 * 60))
+        for t1, t2 in zip(ticks, ticks_expected):
+            self.assertEqual(t1, t2)
+
+        # minute locator
+        timestring = ['00:00:00:000', '00:00:30:000', '00:01:00:000', '00:01:30:000', '00:02:00:000']
+        ticks = time_locator(timestring, 1, -1, 5, 1/float(.5 * 60))
+
+        for t1, t2 in zip(ticks, ticks_expected):
+            self.assertEqual(t1, t2)
+
 

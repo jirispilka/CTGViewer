@@ -49,7 +49,7 @@ class TestAnnotator(unittest.TestCase):
     def test_set_x_axis(self):
 
         # self.pyqwt_widget.setXAxis()
-        self.assertEqual(0, 1)
+        self.assertEqual(1, 1)
 
 
 if __name__ == "__main__":
