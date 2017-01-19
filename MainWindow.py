@@ -43,6 +43,7 @@ from Print import ExportToPdfForm
 DEBUG_PROFILE = False
 DEBUG_FIGO_ANN = False
 DEBUG_MISC = False
+DEBUG_TOOLS = True
 
 # conditional import
 if DEBUG_PROFILE:
@@ -116,6 +117,7 @@ class Main(QtGui.QMainWindow):
             self.ui.actionExport_to_PDF.setEnabled(True)
         else:
             self.ui.actionExport_to_PDF.setEnabled(False)
+            self.ui.actionExport_to_PDF.setToolTip('Export to PDF disabled')
 
         self._process_cmd_args(args)
 
@@ -141,6 +143,12 @@ class Main(QtGui.QMainWindow):
         self.ui.actionCaliperFHR.setChecked(self._config_ini.get_var(EnumIniVar.caliperFHR))
         self.ui.actionCaliperTOCO.setChecked(self._config_ini.get_var(EnumIniVar.caliperTOCO))
         self._caliper_set()
+
+        if DEBUG_TOOLS is True:
+            self.menuDebug = QtGui.QMenu(self.ui.menubar)
+            self.menuDebug.setTitle('Debug')
+            self.menuDebug.addAction(self.ui.actionDebug_CalibSignal)
+            self.ui.menubar.addAction(self.menuDebug.menuAction())
 
     def _create_connections(self):
         """ Creates connections in MainWindow """
@@ -248,6 +256,9 @@ class Main(QtGui.QMainWindow):
         self.ui.PlotWidget.fhrPlot.signal_ann_changed.connect(self._toolbar_ann_changed)
         self.ui.PlotWidget.tocoPlot.signal_ann_changed.connect(self._toolbar_ann_changed)
         self._attSelectForm.signal_sel_att_changed.connect(self._update_data_browser)
+
+        if DEBUG_TOOLS is True:
+            self.ui.actionDebug_CalibSignal.triggered.connect(self.plot_calibration_signal)
 
     def _dock_clin_info_visibility(self):
         """ Clinical information dock visibility has changed, set the property of checkbox"""
@@ -526,6 +537,17 @@ class Main(QtGui.QMainWindow):
         atimestamp = adata[EnumVarName.timestamp]
 
         self.ui.PlotWidget.plot(atimestamp, afhr, uc)
+
+    def plot_calibration_signal(self):
+
+        if self.ui.actionEU.isChecked():
+            paper_format = 'EU'
+        else:
+            paper_format = 'US'
+
+        fs = self.ui.PlotWidget.fhrPlot.get_sampling_freq()
+        fhr, uc, timestamp = Common.generate_calib_signal(fs, paper_format)
+        self.ui.PlotWidget.plot(timestamp, fhr, uc)
 
     def _show_about(self):
         win = AboutDialog()

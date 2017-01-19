@@ -254,6 +254,8 @@ class Ui_MainWindow(object):
         icon20.addPixmap(QtGui.QPixmap(_fromUtf8(":/actions/icons/ann_visibility.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionAnnShowHide.setIcon(icon20)
         self.actionAnnShowHide.setObjectName(_fromUtf8("actionAnnShowHide"))
+        self.actionDebug_CalibSignal = QtGui.QAction(MainWindow)
+        self.actionDebug_CalibSignal.setObjectName(_fromUtf8("actionDebug_CalibSignal"))
         self.menuFile.addAction(self.actionOpen)
         self.menuFile.addAction(self.actionOpen_folder)
         self.menuFile.addAction(self.actionExport_to_PDF)
@@ -394,6 +396,8 @@ class Ui_MainWindow(object):
         self.actionCaliperReset.setToolTip(_translate("MainWindow", "Reset caliper settings", None))
         self.actionAnnShowHide.setText(_translate("MainWindow", "Show/hide", None))
         self.actionAnnShowHide.setToolTip(_translate("MainWindow", "Show/hide annotations", None))
+        self.actionDebug_CalibSignal.setText(_translate("MainWindow", "Plot calibration signal", None))
+        self.actionDebug_CalibSignal.setToolTip(_translate("MainWindow", "Plot calibration signal", None))
 
 from PlotWidget import PlotWidget
 import resources_rc

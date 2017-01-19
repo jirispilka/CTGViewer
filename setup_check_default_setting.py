@@ -22,6 +22,7 @@ lfiles = [["MainWindow.py", "dockDataBrowser.setVisible", "dockDataBrowser.setVi
           ["MainWindow.py", "dockClinInfo.setVisible", "dockClinInfo.setVisible(False)"],
           ["MainWindow.py", "DEBUG_PROFILE = ", "False"],
           ["MainWindow.py", "DEBUG_FIGO_ANN = ", "False"],
+          ["MainWindow.py", "DEBUG_TOOLS = ", "False"],
           ["Config.py", "logging_level =", "logging.ERROR"],
           ["Config.py", "__ini_defaults\[EnumIniVar.paperformat\] =", "EnumPaperFormat.US"],
           ["Config.py", "__ini_defaults\[EnumIniVar.annotationToolbarAlignR\] =", "True"]

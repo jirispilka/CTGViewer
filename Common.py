@@ -146,6 +146,8 @@ def remove_nans_at_begin_and_end(x):
 def generate_calib_signal(fs=4, sformat='EU'):
     """
     Generate step function for calibration of plots
+    The FHR signal starts at min value and then each seconds increments by 10
+
     """
 
     n1 = fs*60
@@ -172,18 +174,22 @@ def generate_calib_signal(fs=4, sformat='EU'):
     uc = np.vstack((uc, uc))
 
     res = len(uc) - len(fhr)
-    uc = uc[0:len(uc) - res ]
+    uc = uc[0:len(uc) - res]
     # print len(uc) - len(fhr)
 
-    timestamp = range(0, len(fhr), 1)
+    fhr = fhr.ravel()
+    uc = uc.ravel()
+
+    # timestamp = range(0, len(fhr), 1)
+    timestamp = np.arange(1, len(fhr) + 1, 1, np.int)
 
     return fhr, uc, timestamp
 
 
 def time_locator(time_string, locator_min, locator_hour, nlastsample, fs):
     """
-    Locates time points at the X axis. The points could be minutes or hours.
-    If both equal to -1 the time is guessed.
+    Locates time points at the X axis. The points could be either minutes or hours.
+    If both are equal to -1 the time set to hours and time is quesed.
     """
 
     if time_string is None:
@@ -258,6 +264,14 @@ def time_locator(time_string, locator_min, locator_hour, nlastsample, fs):
 
 
 def samples2time(nr_samples, fs, time_begin=QString("00:00:00:000")):
+    """
+    Compute time axis for a signal
+
+    :param nr_samples:
+    :param fs: sampling frequency
+    :param time_begin:
+    :return: list of times in a format e.g. 00:00:10, 00:00:20, 00:00:30
+    """
     sformat = "hh:mm:ss:zzz"
     qtime = QTime.fromString(time_begin, sformat)
     ms = 1000 / fs

@@ -675,6 +675,14 @@
     <string>Show/hide annotations</string>
    </property>
   </action>
+  <action name="actionDebug_CalibSignal">
+   <property name="text">
+    <string>Plot calibration signal</string>
+   </property>
+   <property name="toolTip">
+    <string>Plot calibration signal</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

@@ -95,4 +95,22 @@ class TestCommon(unittest.TestCase):
         for t1, t2 in zip(ticks, ticks_expected):
             self.assertEqual(t1, t2)
 
+    def test_calib_signal(self):
+
+        fs = 1
+        fhr, uc, timestamp = generate_calib_signal(fs, 'EU')
+        self.assertEqual(fhr[0], 50)
+        self.assertEqual(fhr[60], 60)
+        self.assertEqual(fhr[120], 70)
+
+        self.assertEqual(uc[0], 0)
+        self.assertEqual(uc[60], 10)
+        self.assertEqual(uc[120], 15)
+
+        self.assertEqual(timestamp[0], 1)
+        self.assertEqual(timestamp[20], 21)
+
+        self.assertEqual(len(fhr), len(uc))
+        self.assertEqual(len(fhr), len(timestamp))
+
 
