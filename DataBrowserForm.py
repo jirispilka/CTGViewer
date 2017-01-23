@@ -22,8 +22,10 @@ import Common
 from Enums import EnumIniVar
 from Config import ConfigStatic, ConfigIni
 from GuiForms import MetainfoFileConvertWorker
+import ClinInfoForm
 from LoadWriteData import LoadData
 from DataBrowserUI import Ui_DataBrowser
+import Annotator
 
 bWriteStageIIcorrect = False
 
@@ -88,6 +90,8 @@ class DataBrowserForm(QtGui.QWidget):
     def __get_val_str(dictci, key):
         if key in dictci:
             return str(dictci[key])
+        else:
+            return None
 
     @staticmethod
     def __get_value_by_type(dictci, key):
@@ -185,6 +189,14 @@ class DataBrowserForm(QtGui.QWidget):
 
         self._table.update()
 
+    def update_model_without_sort(self, selected_att):
+
+        if self._set_model(selected_att) == -1:
+            return
+
+        self._table.setModel(self._model)
+        self._table.update()
+
     def _model_settings(self):
         pass
 
@@ -249,12 +261,21 @@ class DataBrowserForm(QtGui.QWidget):
                 for att in self._selected_att:
                     val = self.__get_val_str(dictrow, att)
                     # val = self.__get_value_by_type(dictrow, att)  # not working
-                    self._model.setItem(irow, icol, QtGui.QStandardItem(val))
-                    icol += 1
+                    if val is not None:
+                        self._model.setItem(irow, icol, QtGui.QStandardItem(val))
 
+                    if att == ClinInfoForm.annotation_name:
+                        ann_extension = Annotator.Annotator().ann_extension
+                        ann_file = dictrow['name'] + ann_extension
+                        ann_file = os.path.join(self._source_dir, ann_file)
+                        val = str(Common.file_exists(ann_file) and Common.get_mumber_lines(ann_file) > 0)
+                        # val = '1' if val is True else '0'
+                        self._model.setItem(irow, icol, QtGui.QStandardItem(val))
+
+                    icol += 1
             irow += 1
 
-        # header
+        # header (attribute Name)
         temp = list()
         temp.append('Name')
         if len(self._selected_att) != 0 and self._selected_att[0] != '':

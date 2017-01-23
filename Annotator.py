@@ -108,7 +108,7 @@ class Annotator:
 
     def __init__(self):
 
-        self._ann_extension = '.ann'
+        self.ann_extension = '.ann'
         self._ann_file = ''
         self._path = ''
         self._dannotations_fhr = dict()
@@ -238,7 +238,7 @@ class Annotator:
         name = Common.get_filename_without_ext(data_file)
 
         self._path = os.path.dirname(data_file)
-        self._ann_file = os.path.join(self._path, name + self._ann_extension)  # set annotation file
+        self._ann_file = os.path.join(self._path, name + self.ann_extension)  # set annotation file
 
     def ann_file_load(self, data_file):
         """
@@ -351,6 +351,7 @@ class CanvasPickerAnnotator(Qt.QObject):
     :type p_plot: :py:class:`FhrPlot`
     """
 
+    # if annotation changed, emit this signal, these signal are typically caught by FhrPlot and TocoPlot
     signal_ann_moved = pyqtSignal()
     signal_ann_moved_outside_view = pyqtSignal(['int'])
 

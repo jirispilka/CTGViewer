@@ -34,7 +34,6 @@ class TestAnnotator(unittest.TestCase):
         self.pyqwt_widget.show()
         # sys.exit(app.exec_())
 
-
     def tearDown(self):
         self.pyqwt_widget.close()
 

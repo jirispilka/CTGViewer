@@ -294,13 +294,15 @@ class Main(QtGui.QMainWindow):
     def _toolbar_ann_changed(self):
         """ Annotations were changed. Enable saving button. """
         self.ui.actionSave.setEnabled(True)
+        # self._dataBrowserWidget.update_model()
 
     def _toolbar_ann_save(self):
-        # print self.ui.PlotWidget.fhrPlot.__d_ann_all_curves
-        # print len(self.ui.PlotWidget.fhrPlot.__d_ann_all_curves)
         self.ui.PlotWidget.ann_save()
-        # self._annotator.set_annotations_and_save(self.ui.PlotWidget.fhrPlot.__d_ann_all_curves)
         self.ui.actionSave.setEnabled(False)
+
+        # update data browser if annotations are selected
+        if ClinInfoForm.annotation_name in self._attSelectForm.get_selected_att():
+            self._dataBrowserWidget.update_model_without_sort(self._attSelectForm.get_selected_att())
 
     def _toolbar_restore_geometry(self):
         self.restoreGeometry(self._valg)
@@ -316,17 +318,6 @@ class Main(QtGui.QMainWindow):
     def _toolbar_align(self):
 
         self.ui.toolBar.clear()
-
-        # self.ui.actionEllipseNote.setEnabled(True)
-        # self.ui.actionEllipseNote.setCheckable(True)
-
-        # tmenu = QtGui.QMenu()
-        # tmenu.addAction(self.ui.actionEllipse)
-        # tmenu.addAction(self.ui.actionEllipseNote)
-        # toolb = QtGui.QToolButton()
-        # toolb.setMenu(tmenu)
-        # toolb.setDefaultAction(self.ui.actionEllipseNote)
-        # toolb.setPopupMode(QtGui.QToolButton.MenuButtonPopup)
 
         if self.ui.actionAnnToolbarAlign_right.isChecked():
             spacer = QtGui.QWidget()
@@ -382,7 +373,6 @@ class Main(QtGui.QMainWindow):
         Set what annotation action will be performed.
         The possible actions are defined in :py:class:`EnumAnnType`
         """
-        # print 'SLOT: ' + a
         self.ui.PlotWidget.set_ann_action(action=a)
 
     def _open_file(self):
@@ -492,11 +482,11 @@ class Main(QtGui.QMainWindow):
             self.ui.PlotWidget.plot_stage2_line(val)
             self.ui.PlotWidget.updatePlots()
 
-        val = adata.get('obsolete_ind_stageII', None)
-        val = int(val) if val is not None else val
-        if val != -1 and val is not None:
-            self.ui.PlotWidget.plot_stage1_line(val)
-            self.ui.PlotWidget.updatePlots()
+        # val = adata.get('obsolete_ind_stageII', None)
+        # val = int(val) if val is not None else val
+        # if val != -1 and val is not None:
+        #     self.ui.PlotWidget.plot_stage1_line(val)
+        #     self.ui.PlotWidget.updatePlots()
 
         val = adata.get('Pos_Birth')
         # print val
@@ -701,8 +691,8 @@ class Main(QtGui.QMainWindow):
         if parsed_args.folder is not None:
             self._open_folder_data_browser(parsed_args.folder)
 
-        # print parsed_args.physionet_file
-        # print parsed_args.matlab_file
+            # print parsed_args.physionet_file
+            # print parsed_args.matlab_file
 
 
 def parse_cmd_args():

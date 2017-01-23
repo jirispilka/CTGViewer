@@ -291,7 +291,7 @@ class ConvertFileForm(QtGui.QWidget):
 class MetainfoFileConvertWorker(Qt.QObject):
     """
     Worker for converting files.
-    This worker has been extracted to be independ from GUI
+    This worker has been extracted to be independent from GUI
     """
 
     file_processed = pyqtSignal(['QString'])

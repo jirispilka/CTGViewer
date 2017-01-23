@@ -21,6 +21,8 @@ from ClinInfoWidgetUI import Ui_ClinInfoWidget
 #                   'Liq_praecox','Pyrexia','Meconium','Presentation','Induced','Istage',
 #                   'NoProgress','CK_KP','IIstage','Deliv_type','dbID','Rec_type','Pos_IIst','Sig2Birth']
 
+annotation_name = 'Annotation'
+
 dictClinInfoFullNames = dict()
 dictClinInfoFullNames['name'] = 'Name'
 dictClinInfoFullNames['pH'] = 'pH'
@@ -64,6 +66,7 @@ dictClinInfoFullNames['NICUacidosis'] = 'NICU (acidosis)'
 dictClinInfoFullNames['Note'] = 'Note'
 # dictClinInfoFullNames['ind_stageII'] = 'ind_stageII'  # temporary
 # dictClinInfoFullNames['obsolete_ind_stageII'] = 'obsolete_ind_stageII'  # temporary
+dictClinInfoFullNames[annotation_name] = 'Annotation (file)'
 
 metainfofile = '.metainfo.csv'
 metainfofile_md5sum = '.metainfo.md5sum'
