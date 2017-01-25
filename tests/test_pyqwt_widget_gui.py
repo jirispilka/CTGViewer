@@ -27,15 +27,17 @@ except:
 class TestAnnotator(unittest.TestCase):
 
     def setUp(self):
+        pass
         # pyqwt_widget = PyQwtWidgetGui()
 
-        app = Qt.QApplication(sys.argv)
-        self.pyqwt_widget = PyQwtWidgetGui()
-        self.pyqwt_widget.show()
+        # app = Qt.QApplication(sys.argv)
+        # self.pyqwt_widget = PyQwtWidgetGui()
+        # self.pyqwt_widget.show()
         # sys.exit(app.exec_())
 
     def tearDown(self):
-        self.pyqwt_widget.close()
+        pass
+        # self.pyqwt_widget.close()
 
     # def test_plot(self):
     #

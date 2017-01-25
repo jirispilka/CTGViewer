@@ -25,9 +25,9 @@ except AttributeError:
 class Ui_AddNote(object):
     def setupUi(self, AddNote):
         AddNote.setObjectName(_fromUtf8("AddNote"))
-        AddNote.resize(162, 160)
-        AddNote.setMinimumSize(QtCore.QSize(160, 160))
-        AddNote.setMaximumSize(QtCore.QSize(162, 160))
+        AddNote.resize(200, 200)
+        AddNote.setMinimumSize(QtCore.QSize(200, 200))
+        AddNote.setMaximumSize(QtCore.QSize(200, 200))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/actions/icons/note.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         AddNote.setWindowIcon(icon)
