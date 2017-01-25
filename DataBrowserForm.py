@@ -167,7 +167,7 @@ class DataBrowserForm(QtGui.QWidget):
             return
 
         self._table.setModel(self._model)
-        # self._table.sortByColumn(0, 0)
+        self._table.sortByColumn(0, 0)
         self._table.resizeColumnsToContents()
         self._table.resizeRowsToContents()
 
