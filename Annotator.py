@@ -24,16 +24,13 @@ Reference
 
 """
 
-from PyQt4 import Qt
-from PyQt4.QtCore import pyqtSignal, QPointF, QPoint
-import PyQt4.Qwt5 as Qwt
-import numpy as np
+from PyQt4.QtCore import pyqtSignal, QPointF
+from PyQt4.Qwt5.Qwt import QwtPlot, QwtPlotCanvas
 import os
 import logging
 
 import Common
-from GuiForms import AddNoteDialog
-from Config import ConfigStatic
+from GuiForms import AddNoteDialog, EvaluationNoteDialog
 from AnnotationObject import *
 from Enums import EnumAnnType
 
@@ -181,10 +178,14 @@ class Annotator:
                     note = self.check_str(s[7])
 
                     if curve_type not in dict_enum_action:
-                        raise IOError('Unsupported annotation type')
+                        print dict_enum_action
+                        raise IOError('Unsupported annotation type {0}.'.format(curve_type))
 
                     if curve_type == EnumAnnType.note:
                         marker = PyQwtPlotMarkerAnnotator(parent_name, curve_type, x_from, x_to, None, None, note)
+
+                    elif curve_type == EnumAnnType.evaluation_note:
+                        marker = PyQwtPlotEvaluationNote(parent_name, curve_type, x_from, x_to, None, None, note)
 
                     elif curve_type == EnumAnnType.ellipse or curve_type == EnumAnnType.ellipsenote:
                         marker = PyQwtPlotEllipseAnnotator(parent_name, curve_type, x_from, x_to, yval1, yval2, note)
@@ -365,6 +366,7 @@ class CanvasPickerAnnotator(Qt.QObject):
         self.__plot = p_plot
 
         self._add_note_dialog = AddNoteDialog()
+        self._add_evaluation_note_dialog = EvaluationNoteDialog()
 
         self.canvas = self.__plot.canvas()
         self.canvas.installEventFilter(self)
@@ -373,7 +375,7 @@ class CanvasPickerAnnotator(Qt.QObject):
         # # The selected point will be highlighted instead.
         self.canvas.setFocusPolicy(Qt.Qt.StrongFocus)
         # canvas.setCursor(Qt.Qt.PointingHandCursor)
-        self.canvas.setFocusIndicator(Qwt.QwtPlotCanvas.ItemFocusIndicator)
+        self.canvas.setFocusIndicator(QwtPlotCanvas.ItemFocusIndicator)
         self.canvas.setFocus()
 
         # self._distance_point = 100
@@ -384,7 +386,7 @@ class CanvasPickerAnnotator(Qt.QObject):
         # self._distance_ellipse_center = 500
 
         self.__bmoving = False
-        self.__addannotation = False
+        self.__add_annotation_after_ellipse = False
         # self._current_curve = AnnotationObject()
         # self.__ann_action = self.__plot.get_ann_action()
 
@@ -403,8 +405,8 @@ class CanvasPickerAnnotator(Qt.QObject):
         :type  pos: QPointF
         :rtype: QPointF
         """
-        clickedpointx = self.__plot.invTransform(Qwt.QwtPlot.xBottom, pos.x())
-        clickedpointy = self.__plot.invTransform(Qwt.QwtPlot.yLeft, pos.y())
+        clickedpointx = self.__plot.invTransform(QwtPlot.xBottom, pos.x())
+        clickedpointy = self.__plot.invTransform(QwtPlot.yLeft, pos.y())
 
         return Qt.QPoint(int(clickedpointx), int(clickedpointy))
 
@@ -432,7 +434,7 @@ class CanvasPickerAnnotator(Qt.QObject):
 
     def __select(self, pos, bhighlight=True, select_type=None):
         """
-        Select an object based on distance.
+        Select an object based on computed distance.
         The x and y values are normalized first to ensure the same units for distance in x and y coordinates.
         The x axis is in samples while the y axis is in BPM.
 
@@ -556,7 +558,7 @@ class CanvasPickerAnnotator(Qt.QObject):
                 if debug:
                     print 'ellipse etc (ellipse_dist, bellipse):', ellipse_dist, bellipse
 
-            elif t == EnumAnnType.note:
+            elif t == EnumAnnType.note or t == EnumAnnType.evaluation_note:
                 note_dist = abs(pos.x() - x_from)
                 if debug:
                     print 'note etc (note_dist):', note_dist
@@ -842,8 +844,8 @@ class CanvasPickerAnnotator(Qt.QObject):
                 self.__bmoving = False
                 self.__move(point, True)
 
-                if self.__addannotation is True and not self.__selected_curve.is_too_small():
-                    self.__addannotation = False
+                if self.__add_annotation_after_ellipse is True and not self.__selected_curve.is_too_small():
+                    self.__add_annotation_after_ellipse = False
                     self._add_note_dialog.clear_text()
                     if self._add_note_dialog.show():
                         # self._current_curve.set_text(self._add_note_dialog.get_text())
@@ -879,7 +881,7 @@ class CanvasPickerAnnotator(Qt.QObject):
             #         self.__plot.ann_add(self.__curve_to_copy)
             #         # self.__curve_to_copy = None
 
-        return Qwt.QwtPlot.eventFilter(self, obj, event)
+        return QwtPlot.eventFilter(self, obj, event)
 
     def perform_single_click_event(self, event):
         """
@@ -909,10 +911,10 @@ class CanvasPickerAnnotator(Qt.QObject):
             elif action == EnumAnnType.ellipsenote:
                 self._add_note_dialog.clear_text()
 
-                if not (self.__addannotation is False and self.__select(point, True, EnumAnnType.ellipsenote)):
+                if not (self.__add_annotation_after_ellipse is False and self.__select(point, True, EnumAnnType.ellipsenote)):
                     curve = self.__plot.ann_ellipse(point, action)
                     self.__select_curve(curve, point, point)
-                    self.__addannotation = True
+                    self.__add_annotation_after_ellipse = True
                 else:
                     self.__unselect()
 
@@ -921,6 +923,14 @@ class CanvasPickerAnnotator(Qt.QObject):
                 if not self.__select(point, True, EnumAnnType.note):  # add new annotation
                     if self._add_note_dialog.show():
                         self.__plot.ann_note(point, self._add_note_dialog.get_text())
+                else:
+                    self.__unselect()
+
+            elif action == EnumAnnType.evaluation_note:
+                self._add_evaluation_note_dialog.clear()
+                if not self.__select(point, True, EnumAnnType.evaluation_note):  # add new annotation
+                    if self._add_evaluation_note_dialog.show():
+                        self.__plot.ann_evaluation_note(point, self._add_evaluation_note_dialog.get_text())
                 else:
                     self.__unselect()
 
@@ -945,13 +955,25 @@ class CanvasPickerAnnotator(Qt.QObject):
         if event.button() == Qt.Qt.LeftButton:
             if action == EnumAnnType.select:
                 self._add_note_dialog.clear_text()
+                self._add_evaluation_note_dialog.clear()
 
-                if (self.__addannotation is False and self.__select(point, True, EnumAnnType.ellipsenote)) \
+                if (self.__add_annotation_after_ellipse is False and self.__select(point, True, EnumAnnType.ellipsenote)) \
                         or (self.__select(point, True, EnumAnnType.note)):
                     # modify current annotation
                     self._add_note_dialog.set_text(self.__selected_curve.text.text())
                     if self._add_note_dialog.show():
                         self.__selected_curve.set_text(self._add_note_dialog.get_text())
+                        self.signal_ann_moved.emit()
+                        self.__plot.ann_plot_curves()
+
+                elif self.__select(point, True, EnumAnnType.evaluation_note):
+                    assert isinstance(self.__selected_curve, PyQwtPlotEvaluationNote)
+
+                    self._add_evaluation_note_dialog.set_values_from_evaluation_string(self.__selected_curve.get_text())
+
+                    if self._add_evaluation_note_dialog.show():
+                        eval_str = self._add_evaluation_note_dialog.get_text()
+                        self.__selected_curve.set_text(eval_str)
                         self.signal_ann_moved.emit()
                         self.__plot.ann_plot_curves()
 

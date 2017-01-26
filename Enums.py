@@ -127,3 +127,56 @@ class EnumAnnType:
     acceleration = 'acceleration'
     uterine_contraction = 'uterine_contraction'
     caliper = 'caliper'
+    evaluation_note = 'evaluation_note'
+
+
+class EnumEvaluationNoteTypes:
+    """
+    Types of evaluations
+    """
+
+    def __int__(self):
+        pass
+
+    initial_ctg = 'initial_ctg'
+    level_of_concern = 'concern'
+    intervention = 'intervention'
+    level_ph = 'ph'
+    level_neurology = 'neurology'
+
+
+class EnumInitialCTG:
+    """
+    Types of interventions
+    """
+
+    def __init__(self):
+        pass
+
+    normal = 'normal'
+    abnormal = 'abnormal'
+
+
+class EnumInterventions:
+    """
+    Types of interventions
+    """
+
+    def __init__(self):
+        pass
+
+    none = 'none'
+    cs = 'cesarean section'
+
+
+class EnumNeurology:
+    """
+    Types of neurological levels
+    """
+
+    def __init__(self):
+        pass
+
+    none = 'none'
+    brain_injury = 'brain injury'
+

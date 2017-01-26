@@ -161,6 +161,7 @@
    <addaction name="actionExcessive_UA"/>
    <addaction name="actionEllipseNote"/>
    <addaction name="actionNote"/>
+   <addaction name="actionEvaluationNote"/>
    <addaction name="separator"/>
    <addaction name="actionCaliper"/>
    <addaction name="actionSave"/>
@@ -681,6 +682,24 @@
    </property>
    <property name="toolTip">
     <string>Plot calibration signal</string>
+   </property>
+  </action>
+  <action name="actionEvaluationNote">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/actions/icons/assessment.png</normaloff>:/actions/icons/assessment.png</iconset>
+   </property>
+   <property name="text">
+    <string>Evaluation</string>
+   </property>
+   <property name="toolTip">
+    <string>Evaluation (Initial CTG, level of concern, intervention, pH)</string>
+   </property>
+   <property name="shortcut">
+    <string>E</string>
    </property>
   </action>
  </widget>

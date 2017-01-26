@@ -16,7 +16,7 @@ The PyQwtCanvasPicker emits signals with cursor position when a plot is clicked
 
 from PyQt4.QtCore import pyqtSignal, QPoint
 from PyQt4 import Qt
-from PyQt4.Qwt5 import QwtPlotCanvas, QwtPlot
+from PyQt4.Qwt5.Qwt import QwtPlotCanvas, QwtPlot
 
 bDEBUG = False
 

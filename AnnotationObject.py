@@ -32,9 +32,10 @@ Reference
 
 """
 
-import PyQt4.Qwt5 as Qwt
+from PyQt4.Qwt5 import Qwt
 from PyQt4 import QtGui, Qt, QtCore
 from Enums import EnumAnnType
+from Config import ConfigStatic
 
 import numpy as np
 import itertools
@@ -154,7 +155,7 @@ class AnnotationObject(object):
 
     @staticmethod
     def text_wrap(s):
-        w = 140
+        w = 200
         s = s.replace('\n', ' ')
         s = textwrap.fill(s, w / 8 + 1)
         return s
@@ -170,6 +171,12 @@ class AnnotationObject(object):
         self.text.setColor(c)
         c.setAlpha(20)
         self.text.setBackgroundBrush(c)
+
+        # c2 = Qt.QColor(Qt.Qt.black)
+        # pen = Qt.QPen()
+        # pen.setColor(c2)
+        # self.text.setBackgroundPen(pen)
+
         self.font_app.setBold(False)
         self.text.setFont(self.font_app)
 
@@ -769,6 +776,164 @@ class Caliper(AnnotationObject, Qwt.QwtPlotCurve):
         y = [y1, y2]
 
         self.setData(x, y)
+
+    def draw_my(self, x=None, y=None):
+        """auxially function"""
+        self.plot()
+
+
+class PyQwtPlotEvaluationNote(AnnotationObject, Qwt.QwtPlotMarker):
+    """
+    Definition of annotation box for CTG evaluation.
+    This includes evaluation of initial CTG, level of concern, interventions, pH, and neorological assesment
+    """
+
+    def __init__(self, parent_name='', curve_type=None, x1=None, x2=None, y1=None, y2=None, s=''):
+        super(AnnotationObject, self).__init__()
+        AnnotationObject.__init__(self, parent_name, curve_type, x1, x2, y1, y2, s)
+        Qwt.QwtPlotMarker.__init__(self)
+
+        if curve_type == EnumAnnType.evaluation_note:
+
+            self.sep = ConfigStatic.ann_evaluation_note_sep
+            self.sep_type_and_value = ConfigStatic.ann_evaluation_note_sep_type_and_value
+
+            # s = self.text_wrap_evaluations(s)
+            self.set_text(s)
+
+            self.setLineStyle(Qwt.QwtPlotMarker.VLine)
+            self.setLabelAlignment(Qt.Qt.AlignRight | Qt.Qt.AlignTop)
+            # self.setLabelAlignment(Qt.Qt.AlignTop)
+            # label = self.label()
+            # assert isinstance(label, Qwt.QwtText)
+            # print label.
+            # label.setLayoutAttribute()
+
+            c = Qt.QColor(Qt.Qt.black)
+            c.setAlpha(30)
+            self.define_pen(c, 3)
+            self.setLinePen(self.pen_def)
+
+            self.set_text_property()
+            self.pdf_alpha_rect = 0.08
+            self.pdf_alpha_line = 0.1
+        else:
+            raise Exception('Do not use PyQwtPlotMarkerAnnotator for this type of curve')
+
+        self.set_default_pen()
+        self.setPen(self.pen_def)
+        self.setSymbol(self.symbol)
+
+    def copy(self):
+        pn = self.get_parent_name()
+        t = self.get_curve_type()
+        return PyQwtPlotEvaluationNote(pn, t, self.x_from, self.x_to, self.yval1, self.yval2, self.get_text())
+
+    def define_pen_symbol_light(self):
+        c = self.pen_def.color()
+        c.setAlpha(60)
+        self.pen_def.setColor(c)
+        self.pen_def.setWidth(2)
+        self.define_symbol(Qwt.QwtSymbol.VLine, c, Qt.QSize(7, 7))
+
+        f = QtGui.QFont(self.font_app)
+        f.setPointSize(self.font_app.pointSize() - 2)
+        self.text.setFont(f)
+
+    def text_wrap_evaluations(self, evals):
+        """
+        This is inverse function to get_text()
+
+        The input is 1 line string: initial_ctg:abnormal__neurology:brain injury
+        The output is left aligned:
+        initial_ctg: abnormal    .
+        neurology: brain injury  .
+
+        :param evals: string of evaluation separated by __
+        :return:
+        """
+        # compute value for text padding (to be align on right)
+        n = 0
+        for r in evals.split(self.sep):
+            r = r.strip('\n')
+            r = Qwt.QwtText(r)
+            if n < r.textSize().width():
+                n = r.textSize().width()
+
+        eval_list = list()
+        for r in evals.split(self.sep):
+
+            if r == '':
+                continue
+
+            r = r.strip('\n')
+            s = r.split(self.sep_type_and_value)
+            s = '{0}{1} {2}'.format(s[0], self.sep_type_and_value, s[1])
+
+            r = Qwt.QwtText(s)
+            while r.textSize().width() < n:
+                s += ' '
+                r = Qwt.QwtText(s)
+
+            # to have correct alignment
+            s += '.'
+            eval_list.append(s)
+
+        s = '\n'.join(eval_list)
+        return s
+
+    def get_text(self):
+        """
+        Get 1 line string from Qwt label
+
+        The text is in a form:
+        initial_ctg: abnormal    .
+        neurology: brain injury  .
+
+        This function returns: initial_ctg:abnormal__neurology:brain injury
+
+        :return:
+        """
+        s = str(self.text.text())
+        # print s
+        s = s.split('\n')
+        eval_new = list()
+        for r in s:
+            # get rid of the last dot
+            while r[-1] == '.':
+                r = r[0:-1]
+
+            r = r.split(self.sep_type_and_value)
+            r0 = r[0].rstrip().lstrip()
+            r1 = r[1].rstrip().lstrip()
+            eval_new.append('{0}{1}{2}'.format(r0, self.sep_type_and_value, r1))
+        return self.sep.join(eval_new)
+
+    def set_text(self, s):
+        s = self.text_wrap_evaluations(s)
+        self.text.setText(s)
+
+    def set_pen_symbol_light(self):
+        self.define_pen_symbol_light()
+        self.setPen(self.pen_def)
+
+    def correct_val_order(self):
+        """ Not used """
+        pass
+
+    def correct_y1_y2(self):
+        """ Not used """
+        pass
+
+    def plot(self):
+        self.setLabel(self.text)
+        self.setValue(self.x_from, 0)
+
+    def plot_xy(self, x1, x2=None, y1=None, y2=None):
+        self.setValue(x1, 0)
+
+    def setPen(self, pen):
+        self.setLinePen(pen)
 
     def draw_my(self, x=None, y=None):
         """auxially function"""

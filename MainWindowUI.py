@@ -256,6 +256,12 @@ class Ui_MainWindow(object):
         self.actionAnnShowHide.setObjectName(_fromUtf8("actionAnnShowHide"))
         self.actionDebug_CalibSignal = QtGui.QAction(MainWindow)
         self.actionDebug_CalibSignal.setObjectName(_fromUtf8("actionDebug_CalibSignal"))
+        self.actionEvaluationNote = QtGui.QAction(MainWindow)
+        self.actionEvaluationNote.setCheckable(True)
+        icon21 = QtGui.QIcon()
+        icon21.addPixmap(QtGui.QPixmap(_fromUtf8(":/actions/icons/assessment.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionEvaluationNote.setIcon(icon21)
+        self.actionEvaluationNote.setObjectName(_fromUtf8("actionEvaluationNote"))
         self.menuFile.addAction(self.actionOpen)
         self.menuFile.addAction(self.actionOpen_folder)
         self.menuFile.addAction(self.actionExport_to_PDF)
@@ -285,6 +291,7 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.actionExcessive_UA)
         self.toolBar.addAction(self.actionEllipseNote)
         self.toolBar.addAction(self.actionNote)
+        self.toolBar.addAction(self.actionEvaluationNote)
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.actionCaliper)
         self.toolBar.addAction(self.actionSave)
@@ -398,6 +405,9 @@ class Ui_MainWindow(object):
         self.actionAnnShowHide.setToolTip(_translate("MainWindow", "Show/hide annotations", None))
         self.actionDebug_CalibSignal.setText(_translate("MainWindow", "Plot calibration signal", None))
         self.actionDebug_CalibSignal.setToolTip(_translate("MainWindow", "Plot calibration signal", None))
+        self.actionEvaluationNote.setText(_translate("MainWindow", "Evaluation", None))
+        self.actionEvaluationNote.setToolTip(_translate("MainWindow", "Evaluation (Initial CTG, level of concern, intervention, pH)", None))
+        self.actionEvaluationNote.setShortcut(_translate("MainWindow", "E", None))
 
 from PlotWidget import PlotWidget
 import resources_rc

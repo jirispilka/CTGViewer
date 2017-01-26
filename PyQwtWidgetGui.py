@@ -9,6 +9,7 @@
 # (see CTGViewer.py for details)
 
 
+# noinspection PyPackageRequirements
 """
 PyQwtWidgetGui
 ----------------
@@ -32,7 +33,8 @@ Reference
 """
 
 from PyQt4 import QtCore, QtGui, Qt
-import PyQt4.Qwt5 as Qwt
+# import PyQt4.Qwt5 as Qwt
+from PyQt4.Qwt5 import Qwt
 
 import numpy as np
 import logging
@@ -73,6 +75,7 @@ class PyQwtWidgetGui(Qwt.QwtPlot):
         self._font_app = QtGui.QFont()
 
         dpi = 96
+        # TODO test physicalDpi (funguje v MainWindow.py)
         self._dpi2px = dpi*(1/2.54)
         self._plotSpeed = EnumPlotSpeed.oneCmMin
         self._plotBpm = EnumPlotBpm.twentyBpmCm
@@ -175,9 +178,10 @@ class PyQwtWidgetGui(Qwt.QwtPlot):
 
         if action == EnumAnnType.select:
             self.canvas().setCursor(Qt.Qt.ArrowCursor)
+
         elif action == EnumAnnType.basal or action == EnumAnnType.baseline \
                 or action == EnumAnnType.recovery or action == EnumAnnType.no_recovery \
-                or action == EnumAnnType.ellipse:
+                or action == EnumAnnType.ellipse or action == EnumAnnType.evaluation_note:
             self.canvas().setCursor(Qt.Qt.CrossCursor)
 
         elif action == EnumAnnType.caliper:
@@ -401,6 +405,18 @@ class PyQwtWidgetGui(Qwt.QwtPlot):
         self.ann_add(ellipse)
         return ellipse
 
+    def ann_evaluation_note(self, pos, s):
+        """
+        Add annotation type Evaluation Note
+
+        :param pos: x and y position
+        :param s: text for annotation
+        :type pos: QPointF
+        :type s: str
+        """
+        note = PyQwtPlotEvaluationNote(self.__name, EnumAnnType.evaluation_note, int(pos.x()), int(pos.x()), None, None, s)
+        self.ann_add(note)
+
     def ann_floating_baseline(self, pos, en=EnumAnnType.floating_baseline):
 
         pos = self.ann_floating_baseline_outside_signal(pos)
@@ -431,6 +447,11 @@ class PyQwtWidgetGui(Qwt.QwtPlot):
         return pos
 
     def ann_add(self, curve):
+        """
+        Add the annotation (curve) into dictionary of annotations and plot
+        :param curve:
+        :return:
+        """
 
         self.__d_ann_all_curves[curve.id] = curve
         self.ann_plot_curves()

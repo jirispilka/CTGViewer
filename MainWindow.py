@@ -42,7 +42,7 @@ from Print import ExportToPdfForm
 
 DEBUG_PROFILE = False
 DEBUG_FIGO_ANN = False
-DEBUG_MISC = False
+DEBUG_MISC = True
 DEBUG_TOOLS = True
 
 # conditional import
@@ -179,7 +179,8 @@ class Main(QtGui.QMainWindow):
         dactions = {pui.actionCursor: e.select, pui.actionBasal: e.basal, pui.actionBaseline: e.baseline,
                     pui.actionRecovery: e.recovery, pui.actionNo_recovery: e.no_recovery,
                     pui.actionExcessive_UA: e.excessive_ua, pui.actionEllipse: e.ellipse,
-                    pui.actionEllipseNote: e.ellipsenote, pui.actionNote: e.note}
+                    pui.actionEllipseNote: e.ellipsenote, pui.actionNote: e.note,
+                    pui.actionEvaluationNote: e.evaluation_note}
 
         if DEBUG_FIGO_ANN:
             dactions[pui.actionFloating_Baseline] = e.floating_baseline
@@ -334,6 +335,7 @@ class Main(QtGui.QMainWindow):
         # self.ui.toolBar.addAction(self.ui.actionEllipse)
         self.ui.toolBar.addAction(self.ui.actionEllipseNote)
         self.ui.toolBar.addAction(self.ui.actionNote)
+        self.ui.toolBar.addAction(self.ui.actionEvaluationNote)
         self.ui.toolBar.addSeparator()
         self.ui.toolBar.addAction(self.ui.actionCaliper)
         # self.ui.toolBar.addAction(self.ui.actionAnnShowHide)

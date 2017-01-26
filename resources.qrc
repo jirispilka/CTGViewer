@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="actions">
+    <file>icons/clear.png</file>
+    <file>icons/assessment.png</file>
     <file>icons/ann_visibility.png</file>
     <file>icons/caliper.png</file>
     <file>icons/deceleration.png</file>

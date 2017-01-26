@@ -197,3 +197,6 @@ class ConfigStatic:
 
     navigation_plot_downsample_fs = 2
     plot_toco_offset = int(50)
+
+    ann_evaluation_note_sep = '__'
+    ann_evaluation_note_sep_type_and_value = ':'

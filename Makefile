@@ -1,6 +1,6 @@
 # file: Makefile	Jiri Spilka (jiri.spilka@ciirc.cvut.cz)
 
-all: MainWindowUI ClinInfoWidgetUI AboutUI ConvertFileUI DataBrowserSelectAttrUI DataBrowserUI DownloadCtuUhbUI AddNoteUI SentAnnotationsUI ExportPdfUI AnnShowHideUI resources
+all: MainWindowUI ClinInfoWidgetUI AboutUI ConvertFileUI DataBrowserSelectAttrUI DataBrowserUI DownloadCtuUhbUI AddNoteUI SentAnnotationsUI ExportPdfUI AnnShowHideUI EvaluationNoteUI resources
 
 MainWindowUI: MainWindowUI.ui
 	pyuic4 MainWindowUI.ui -o MainWindowUI.py
@@ -33,7 +33,10 @@ ExportPdfUI: ExportPdfUI.ui
 	pyuic4 ExportPdfUI.ui -o ExportPdfUI.py
 
 AnnShowHideUI: AnnShowHideUI.ui
-	pyuic4 AnnShowHideUI.ui -o AnnShowHideUI.py	
+	pyuic4 AnnShowHideUI.ui -o AnnShowHideUI.py
+
+EvaluationNoteUI: EvaluationNoteUI.ui
+	pyuic4 EvaluationNoteUI.ui -o EvaluationNoteUI.py
 
 resources: resources_rc.py resources.qrc
 	pyrcc4 resources.qrc -o resources_rc.py

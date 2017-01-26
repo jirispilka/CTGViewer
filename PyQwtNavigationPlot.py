@@ -30,7 +30,7 @@ Reference
 """
 from PyQt4.QtGui import QColor
 from PyQt4 import Qt
-from PyQt4.Qwt5 import QwtPlotCurve, QwtScaleDiv, QwtPlot
+from PyQt4.Qwt5.Qwt import QwtPlotCurve, QwtScaleDiv, QwtPlot
 
 from PyQwtWidgetGui import PyQwtWidgetGui
 from PyQwtCanvasPicker import PyQwtCanvasPicker

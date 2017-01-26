@@ -36,6 +36,7 @@ except:
 
 # local imports
 from AboutUI import Ui_DialogAbout
+from EvaluationNoteUI import Ui_EvaluationNote
 from ConvertFileUI import Ui_ConvertFile
 from DownloadCtuUhbUI import Ui_DownloadCtuUhb
 from AddNoteUI import Ui_AddNote
@@ -92,6 +93,162 @@ class AddNoteDialog(QtGui.QDialog):
 
     def show(self):
         self.ui.textNote.setFocus()
+        return self.exec_()
+
+
+class EvaluationNoteDialog(QtGui.QDialog):
+
+    def __init__(self, parent=None):
+        QtGui.QDialog.__init__(self, parent)
+        self.ui = Ui_EvaluationNote()
+        self.ui.setupUi(self)
+
+        self.btnOk = self.ui.buttonBox.button(Qt.QDialogButtonBox.Ok)
+        self.btnCancel = self.ui.buttonBox.button(Qt.QDialogButtonBox.Cancel)
+        self.btnReset = self.ui.buttonBox.button(Qt.QDialogButtonBox.Reset)
+
+        # connections
+        self.btnReset.clicked.connect(self.clear)
+        # self.btnReset.clicked.connect(self.make_evaluation_string)
+
+        self.ui.btnClearInitialCTG.clicked.connect(self.clear_initial_ctg)
+        self.ui.btnClearLevelConcern.clicked.connect(self.clear_concern)
+        self.ui.btnClearInterventation.clicked.connect(self.clear_interventions)
+        self.ui.btnClearPh.clicked.connect(self.clear_ph)
+        self.ui.btnClearNeurology.clicked.connect(self.clear_neurology)
+
+        self.sep = ConfigStatic.ann_evaluation_note_sep
+        self.sep_type_and_value = ConfigStatic.ann_evaluation_note_sep_type_and_value
+        self.evaluation_string = ''
+
+        self.fill_all_combos()
+        self.clear_ph()
+        self.clear_concern()
+
+        # self.ui.cbInitialCTG.setCurrentIndex(2)
+        # self.ui.cbIntervention.setCurrentIndex(1)
+        # self.ui.sbLevelConcern.setValue(7)
+        # self.ui.sbph.setValue(7.1)
+        # self.ui.cbNeurology.setCurrentIndex(1)
+        # print self.make_evaluation_string()
+
+        # s = 'initialctg:normal__intervention:none__concern:7__ph:7.1__neurology:none'
+        # self.set_values_from_evaluation_string(s)
+
+    def fill_all_combos(self):
+
+        self.fill_combo(self.ui.cbInitialCTG, EnumInitialCTG)
+        self.fill_combo(self.ui.cbIntervention, EnumInterventions)
+        self.fill_combo(self.ui.cbNeurology, EnumNeurology)
+
+    @staticmethod
+    def fill_combo(cb, enum):
+
+        d = enum.__dict__
+        d = {key: val for key, val in d.iteritems() if key[0:2] != '__'}
+        cb.addItem('')
+        for key, val in d.iteritems():
+            cb.addItem(val)
+
+    def clear(self):
+        self.clear_initial_ctg()
+        self.clear_concern()
+        self.clear_interventions()
+        self.clear_ph()
+        self.clear_neurology()
+
+    def clear_initial_ctg(self):
+        self.ui.cbInitialCTG.setCurrentIndex(0)
+
+    def clear_concern(self):
+        self.ui.sbLevelConcern.setValue(-1)
+        self.ui.sbLevelConcern.setSpecialValueText(' ')
+
+    def clear_interventions(self):
+        self.ui.cbIntervention.setCurrentIndex(0)
+
+    def clear_ph(self):
+        self.ui.sbph.setValue(6.0)
+        self.ui.sbph.setSpecialValueText(' ')
+
+    def clear_neurology(self):
+        self.ui.cbNeurology.setCurrentIndex(0)
+
+    def make_evaluation_string(self):
+
+        en = EnumEvaluationNoteTypes
+        l = list()
+
+        if self.ui.cbInitialCTG.currentIndex() > 0:
+            s = en.initial_ctg + self.sep_type_and_value + str(self.ui.cbInitialCTG.currentText())
+            l.append(s)
+
+        if self.ui.cbIntervention.currentIndex() > 0:
+            s = en.intervention + self.sep_type_and_value + str(self.ui.cbIntervention.currentText())
+            l.append(s)
+
+        if self.ui.sbLevelConcern.value() > -1:
+            s = en.level_of_concern + self.sep_type_and_value + str(self.ui.sbLevelConcern.value())
+            l.append(s)
+
+        if self.ui.sbph.value() > 6.50:
+            s = en.level_ph + self.sep_type_and_value + str(self.ui.sbph.value())
+            l.append(s)
+
+        if self.ui.cbNeurology.currentIndex() > 0:
+            s = en.level_neurology + self.sep_type_and_value + str(self.ui.cbNeurology.currentText())
+            l.append(s)
+
+        return '__'.join(l)
+
+    def set_values_from_evaluation_string(self, s=''):
+
+        for val in s.split(self.sep):
+            s = val.split(self.sep_type_and_value)
+
+            if s[0] == EnumEvaluationNoteTypes.initial_ctg:
+                self._set_combobox_value(self.ui.cbInitialCTG, s[1])
+
+            elif s[0] == EnumEvaluationNoteTypes.level_of_concern:
+
+                val = int(s[1])
+                if val < self.ui.sbLevelConcern.minimum() or val > self.ui.sbLevelConcern.maximum():
+                    raise ValueError('Level of concern={0} is outside of range'.format(val))
+
+                self.ui.sbLevelConcern.setValue(val)
+
+            elif s[0] == EnumEvaluationNoteTypes.level_ph:
+
+                val = float(s[1])
+                if val < self.ui.sbph.minimum() or val > self.ui.sbph.maximum():
+                    raise ValueError('Value of pH={0} is outside of range'.format(val))
+
+                self.ui.sbph.setValue(val)
+
+            elif s[0] == EnumEvaluationNoteTypes.intervention:
+                self._set_combobox_value(self.ui.cbIntervention, s[1])
+
+            elif s[0] == EnumEvaluationNoteTypes.level_neurology:
+                self._set_combobox_value(self.ui.cbNeurology, s[1])
+
+    @staticmethod
+    def _set_combobox_value(cb, value):
+
+        for i in range(0, cb.count()):
+            if cb.itemText(i) == value:
+                cb.setCurrentIndex(i)
+                return 0
+
+        if cb.currentText() != value:
+            raise ValueError('Value of {0} for combobox {1} is not valid'.format(value, cb))
+
+    def get_text(self):
+        return self.make_evaluation_string()
+
+    def set_text(self, s):
+        self.set_values_from_evaluation_string(s)
+
+    def show(self):
         return self.exec_()
 
 
@@ -931,8 +1088,9 @@ def main():
     # window = ConvertFileForm()
     # window = DownoladDbForm()
     # winwow = AnnShowHide()
-    # window.show()
-    # sys.exit(app.exec_())
+    window = EvaluationNoteDialog()
+    window.show()
+    sys.exit(app.exec_())
 
     # r = ConvertFileWorker()
     # r.metainfo_read_csv('/home/jirka/data/igabrno/CTU_UHB_physionet')
