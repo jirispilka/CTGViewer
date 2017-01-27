@@ -13,8 +13,8 @@ import shutil
 import io
 import sys
 
-sOldVersion = "0.3.00"
-sNewVersion = "0.3.10"
+sOldVersion = "0.3.10"
+sNewVersion = "0.3.20"
 
 
 def run():
@@ -57,7 +57,7 @@ def run():
     os.remove(file_temp)
 
     if cnt_error > 0:
-        print 'Version number not proerly set in all files!'
+        print 'Version number not properly set in all files!'
     else:
         print('All versions were replaced')
 
