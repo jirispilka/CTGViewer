@@ -2,10 +2,13 @@
 
 # copy all for publishing at web page
 
+echo OBSOLETE
+echo OBSOLETE -- need to check the paths and modify
+
 echo pack source code and copy them to local web site
 echo running ...
 
-VERSION="0.3.10"
+VERSION="0.3.20"
 
 # build html
 echo copy documentation

@@ -21,7 +21,7 @@ def run():
 
     print('Setting version: ' + sNewVersion)
 
-    afiles = 'setup.py', 'AboutUI.ui', 'copy_to_web.sh', 'setup_inno.iss', 'doc/conf.py'
+    afiles = 'setup.py', 'src/AboutUI.ui', 'copy_to_web.sh', 'setup_inno.iss', 'doc/conf.py'
     file_temp = 'temp.txt'
 
     cnt_error = 0
@@ -49,10 +49,10 @@ def run():
             print fname + 'error - original file was restored'
 
     if sys.platform == 'linux2':
-        os.system("pyuic4 AboutUI.ui -o AboutUI.py")
+        os.system("pyuic4 src/AboutUI.ui -o src/AboutUI.py")
         os.system("chmod 775 copy_to_web.sh")
     else:
-        os.system('c:\Python26\Lib\site-packages\PyQt4\pyuic4.bat AboutUI.ui -o AboutUI.py')
+        os.system('c:\Python26\Lib\site-packages\PyQt4\pyuic4.bat src\AboutUI.ui -o src\AboutUI.py')
 
     os.remove(file_temp)
 

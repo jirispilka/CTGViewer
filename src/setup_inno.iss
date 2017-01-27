@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 [ISPP]
 #define AppName "CTGViewer"
-#define AppVersion "0.3.10"
+#define AppVersion "0.3.20"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -20,10 +20,10 @@ DefaultGroupName=CTGViewer
 AllowNoIcons=yes
 LicenseFile=e:\github\CTGViewer\LICENSE
 OutputBaseFilename={#AppName}_v{#AppVersion}_setup
-Compression=lzma
-; Compression=none
+; Compression=lzma
+Compression=none
 SolidCompression=yes
-OutputDir=build
+OutputDir="build"
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -34,7 +34,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 ; Files to include into installer
 
 [Files]
-Source: "E:\github\CTGViewer\build\exe.win32-2.7\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "E:\github\CTGViewer\src\build\exe.win32-2.7\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "E:\github\CTGViewer\icons\favicon16.ico"; DestDir: "{app}"; Flags: ignoreversion
 Source: "E:\github\CTGViewer\icons\favicon32.ico"; DestDir: "{app}"; Flags: ignoreversion
 Source: "E:\github\CTGViewer\icons\uninstall.ico"; DestDir: "{app}"; Flags: ignoreversion

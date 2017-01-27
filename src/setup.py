@@ -27,7 +27,7 @@ if os.path.exists(OUT_DIR):
 # include exe file of vcredist_x86.exe
 # include _ufuncs, libifcoremd, libmmd otherwise unable to start
 # info: http://stackoverflow.com/questions/19633757/using-cx-freeze-with-scipy-scipy-special-ufuncs-py
-includefiles = [os.path.join(BASE_DIR, 'win32/vcredist_x86.exe'),
+includefiles = [os.path.join(BASE_DIR, '..\\win32\\vcredist_x86.exe'),
                 ('c:\\Python27\\Lib\\site-packages\\scipy\\special\\_ufuncs.pyd', '_ufuncs.pyd'),
                 ('c:\\Python27\\Lib\\site-packages\\numpy\\core\\libifcoremd.dll', 'libifcoremd.dll'),
                 ('c:\\Python27\\Lib\\site-packages\\numpy\\core\\libmmd.dll', 'libmmd.dll')]
@@ -37,7 +37,7 @@ packages = ["reportlab", "scipy"]
 path = []
 
 exeTarget = Executable(
-    script=os.path.join(BASE_DIR, "CTGViewer.py"),
+    script=os.path.join("CTGViewer.py"),
     base="Win32GUI",
     compress=True,
     copyDependentFiles=True,
@@ -45,7 +45,7 @@ exeTarget = Executable(
 
 setup(
     name="CTGViewer",
-    version="0.3.10",
+    version="0.3.20",
     description="CTGViewer application",
     author="Jiri Spilka",
     author_email='jiri.spilka@ciirc.cvut.cz',
