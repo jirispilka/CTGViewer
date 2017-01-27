@@ -15,7 +15,7 @@ import tempfile
 import numpy as np
 from PyQt4 import Qt
 
-sys.path.append('../')
+sys.path.append('../src/')
 
 try:
     from Common import *

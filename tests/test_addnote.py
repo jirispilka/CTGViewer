@@ -9,11 +9,8 @@
 # (see CTGViewer.py for details)
 
 import unittest
-import os
 import sys
-from PyQt4.QtCore import QPointF
-import tempfile
-sys.path.append('../')
+sys.path.append('../src/')
 
 try:
     from PyQt4.QtGui import QApplication

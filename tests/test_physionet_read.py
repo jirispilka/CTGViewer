@@ -11,7 +11,7 @@
 import unittest
 import os
 import sys
-sys.path.append('../')
+sys.path.append('../src/')
 
 try:
     # import Init

@@ -13,7 +13,7 @@ import os
 import sys
 from PyQt4.QtCore import QPointF
 import tempfile
-sys.path.append('../')
+sys.path.append('../src/')
 
 try:
     from Annotator import Annotator, distance_to_point, compute_dist_ellipse, compute_dist_caliper
