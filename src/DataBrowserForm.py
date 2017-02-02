@@ -260,9 +260,12 @@ class DataBrowserForm(QtGui.QWidget):
             if len(self._selected_att) != 0 and self._selected_att[0] != '':
                 for att in self._selected_att:
                     val = self.__get_val_str(dictrow, att)
-                    # val = self.__get_value_by_type(dictrow, att)  # not working
+                    # nefunguje kdey jsou hodnoty nan (nefunguje razeni v modelu)
+                    # val = self.__get_value_by_type(dictrow, att)
                     if val is not None:
-                        self._model.setItem(irow, icol, QtGui.QStandardItem(val))
+                        item = QtGui.QStandardItem()
+                        item.setData(QtCore.QVariant(val), 0)
+                        self._model.setItem(irow, icol, item)
 
                     if att == ClinInfoForm.annotation_name:
                         ann_extension = Annotator.Annotator().ann_extension

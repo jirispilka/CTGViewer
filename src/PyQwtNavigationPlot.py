@@ -72,7 +72,7 @@ class PyQwtNavigationPlot(PyQwtWidgetGui):
 
         self.set_locator_minute(60)
         # self.setLocatorHourInterval(2)
-        self.setYMinMax(self._toco_offset, 200)
+        self.setYMinMax(self._toco_offset - 1, 200)  # the -1 is because of UCs with all zero values
         # self.setYMinMax(0, 300)
 
         self.canvasPicker = PyQwtCanvasPicker(self)

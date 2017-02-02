@@ -978,7 +978,13 @@ class MaskedCurve(Qwt.QwtPlotCurve):
         # 1. index[i] - index[i+1] < -1
         # 2. index[-1] is always OK
         """
+
         indices = np.arange(self.data().size())[self.data().mask()]
+
+        # if indices.shape[0] == 0:
+        #     Qwt.QwtPlotCurve.drawFromTo(self, painter, xMap, yMap, 0, len(self.data().mask()))
+            # return
+
         fs = np.array(indices)
         fs[1:] -= indices[:-1]
         # print fs
