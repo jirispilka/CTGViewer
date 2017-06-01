@@ -480,6 +480,8 @@ class Main(QtGui.QMainWindow):
         self.ui.actionExport_to_PDF.setEnabled(True)
 
         val = adata.get('Pos_IIst')
+        # print(val)
+        # print(adata.get('ind_stageII'))
         if val != -1 and val is not None:
             self.ui.PlotWidget.plot_stage2_line(val)
             self.ui.PlotWidget.updatePlots()

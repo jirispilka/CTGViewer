@@ -475,18 +475,22 @@ class LoadData:
 
             # print datadict[sout]
 
-        if 'IIstage' in datadict:
-            # fix the position of second stage
-            stage2_min = datadict['IIstage']
-            sig2end_min = datadict['Sig2Birth']
-            fs = datadict['fs']
+        if 'ind_stageII' in datadict:
+            datadict['Pos_IIst'] = datadict['ind_stageII']
+        else:
 
-            if stage2_min <= sig2end_min:
-                datadict['Pos_IIst'] = np.nan
-            else:
-                datadict['Pos_IIst'] = n - round(60 * fs * (stage2_min - sig2end_min))
+            if 'IIstage' in datadict:
+                # fix the position of second stage
+                stage2_min = datadict['IIstage']
+                sig2end_min = datadict['Sig2Birth']
+                fs = datadict['fs']
 
-            datadict['Sig2Birth'] = round(datadict['Sig2Birth'], 2)
+                if stage2_min <= sig2end_min:
+                    datadict['Pos_IIst'] = np.nan
+                else:
+                    datadict['Pos_IIst'] = n - round(60 * fs * (stage2_min - sig2end_min))
+
+                datadict['Sig2Birth'] = round(datadict['Sig2Birth'], 2)
 
         return datadict
 
