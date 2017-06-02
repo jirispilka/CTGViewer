@@ -478,7 +478,7 @@ class LoadData:
             # print datadict[sout]
 
         if 'ind_stageII' in datadict:
-            datadict['Pos_IIst'] = datadict['ind_stageII']
+            datadict['Pos_IIst'] = int(datadict['ind_stageII'])
         else:
 
             if 'IIstage' in datadict:

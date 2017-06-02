@@ -58,7 +58,7 @@ class Main(QtGui.QMainWindow):
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self._winTitleDefault = str(self.windowTitle())
+        self._win_title_default = str(self.windowTitle())
 
         self._log = logging.getLogger(ConfigStatic.logger_name)
         self._log.info('passed')
@@ -623,9 +623,10 @@ class Main(QtGui.QMainWindow):
     def _set_window_title_rec(self, name=None):
 
         if name is None:
-            self.setWindowTitle(self._winTitleDefault)
+            self.setWindowTitle(self._win_title_default)
         else:
-            s = self._winTitleDefault + ' (' + name + ')'
+            # s = self._winTitleDefault + ' (' + name + ')'
+            s = '{0} ({1})'.format(self._win_title_default, name)
             self.setWindowTitle(s)
 
     def _export_to_pdf(self):
