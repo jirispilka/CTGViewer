@@ -26,17 +26,18 @@ Reference
    :members:
 """
 
+import csv
+import logging
 # Import global modules
 import numpy as np
-import logging
 import os
 import struct
+
 from scipy.io import loadmat
-import csv
 
 import Common
-from Enums import EnumVariableName
 from Config import ConfigStatic
+from Enums import EnumVariableName
 
 
 class LoadData:
@@ -238,7 +239,7 @@ class LoadData:
         adata = loadmat(sfile)
 
         # handle the Lyon matfile version
-        adata = transform_lyon_format(adata)
+        adata = transform_different_formats(adata)
 
         if EnumVariableName.fhr not in adata:
             raise Exception("The variable 'fhr' must be present in the file: {0}".format(sfile))
@@ -339,6 +340,7 @@ class LoadData:
         f.close()
 
         return aDataAll, 0
+
 
     def read_csv_file(self, infile):
         """
@@ -508,30 +510,25 @@ def transform_physionet(adata, lheader):
     return adata
 
 
-def transform_lyon_format(data):
+def transform_different_formats(data):
     """
-    :param data: loaded matlab file of Lyon database
+    Transform different formats to be used in CTGViewer
+    :param data: dict() of loaded matlab file
     :return:
     """
 
-    if EnumVariableName.fhr not in data:
+    # LYON FORMAT
+    if 'bpm_nan' in data:
         data[EnumVariableName.fhr] = data['bpm_nan']
         data[EnumVariableName.fhr] = np.ravel(data[EnumVariableName.fhr])
-
-        """
-        # posible display of NaN values
-        x = data['bpm_nan']
-        ind = np.isnan(x)
-        x[ind] = 0
-        data[EnumVariableName.fhr] = x
-        """
-
         data = save_delete_from_dict(data, 'bpm')
         data = save_delete_from_dict(data, 'bpm_nan')
 
-    # print data[EnumVariableName.fhr]
-    # print type(data[EnumVariableName.fhr])
-    # print len(data[EnumVariableName.fhr])
+    # SPAM CHALLENGE FORMAT
+    if 'toco' in data:
+        data[EnumVariableName.fhr] = np.ravel(data[EnumVariableName.fhr])
+        data[EnumVariableName.uc] = data['toco']
+
     n = len(data[EnumVariableName.fhr])
 
     if 'uc' not in data:

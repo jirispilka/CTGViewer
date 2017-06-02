@@ -76,7 +76,7 @@ class TestReadWrite(unittest.TestCase):
         outfile.seek(0)
         content = outfile.read()
 
-        print content
+        # print content
         self.assertEqual('timestamp,fhr,uc\n1,155.5,7.8\n2,155.0,8.0\n',content)
 
     def test_read_matlab(self):
@@ -100,6 +100,28 @@ class TestReadWrite(unittest.TestCase):
         self.assertEqual(uc[1], 8.5)
 
         self.assertEqual(fs, 4)
+
+    def test_read_physionet_2017(self):
+
+        file1 = os.path.join('files', 'spam_challenge_2017.mat')
+        adata = self._dataLoader.read_matlab_file(file1)
+
+        timestamp = adata[Enum.timestamp]
+        fhr = adata[Enum.fhr]
+        uc = adata[Enum.uc]
+        fs = adata[Enum.fs]
+
+        self.assertEqual(timestamp[0], 1)
+        self.assertEqual(timestamp[1], 2)
+
+        for expected, v in zip(fhr, [1, 2, 3, 4, 5]):
+            self.assertEqual(v, expected)
+
+        for expected, v in zip(uc, [5, 15, 12, 0, 1]):
+            self.assertEqual(v, expected)
+
+        self.assertEqual(fs, 4)
+        self.assertEqual(adata['Pos_IIst'], 3)
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'TestMapper.testName']
