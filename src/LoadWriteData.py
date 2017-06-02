@@ -444,10 +444,10 @@ class LoadData:
         """
         var_list_in = ['pH', 'BDecf', 'dataLengthOrig_min', 'fs', 'sig2End_min', 'sig2End_samp', 'fileNameMat',
                        'apgar1', 'apgar5', 'stageII_min', 'stageII_samp', 'operativeSFA', 'birthWeight', 'sexM',
-                       'resuscitationWard', 'NICU', 'moveToSFA', 'ind_stageII', 'obsolete_ind_stageII', 'name']
+                       'resuscitationWard', 'NICU', 'moveToSFA', 'ind_stageII', 'obsolete_ind_stageII', 'id']
         var_list_out = ['pH', 'BDecf', 'dataLengthOrig_min', 'fs', 'Sig2Birth', 'sig2End_samp', 'name',
                         'Apgar1', 'Apgar5', 'IIstage', 'Pos_IIst', 'ClinAnnotation', 'Weight_g', 'Sex',
-                        'resuscitationWard', 'NICU', 'NICUacidosis', 'ind_stageII','obsolete_ind_stageII', 'name']
+                        'resuscitationWard', 'NICU', 'NICUacidosis', 'ind_stageII', 'obsolete_ind_stageII', 'name']
 
         datadict = dict()
 
