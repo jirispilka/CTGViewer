@@ -19,7 +19,6 @@ import logging
 from PyQt4 import QtCore, QtGui, Qt
 
 import Common
-from Enums import EnumIniVar
 from Config import ConfigStatic, ConfigIni
 from GuiForms import MetainfoFileConvertWorker
 import ClinInfoForm
@@ -27,14 +26,17 @@ from LoadWriteData import LoadData
 from DataBrowserUI import Ui_DataBrowser
 import Annotator
 
-bWriteStageIIcorrect = False
-
 
 # noinspection PyInterpreter
 class DataBrowserForm(QtGui.QWidget):
 
     plotFileSignal = QtCore.pyqtSignal(['QString'])
-    # debug_stageI_signal = QtCore.pyqtSignal(['int'])
+
+    bWriteStageIIcorrect = False
+    bDebugStageIICorrect = False
+
+    if bDebugStageIICorrect:
+        debug_stageI_signal = QtCore.pyqtSignal(['int'])
 
     def __init__(self, parent=None, config_ini=None):
 
@@ -82,7 +84,7 @@ class DataBrowserForm(QtGui.QWidget):
 
         self._selected_att = list()
 
-        if bWriteStageIIcorrect:
+        if self.bDebugStageIICorrect:
             import datetime
             self._metainfofile_stage2_corr = 'metainfo_corrected_' + str(datetime.datetime.utcnow()) + '.csv'
 
@@ -230,7 +232,7 @@ class DataBrowserForm(QtGui.QWidget):
 
         self._selected_att = selected_att
 
-        if bWriteStageIIcorrect:
+        if self.bWriteStageIIcorrect:
             self._metainfofile_stage2_corr = os.path.join(self._source_dir, self._metainfofile_stage2_corr)
 
         if afiles is None:
@@ -299,18 +301,22 @@ class DataBrowserForm(QtGui.QWidget):
 
         self._plot_file_emit(fname)
 
-        # cnt = 0
-        # temp = list()
-        # temp.append('Name')
-        # for s in temp+self._selected_att:
-        #     if s == 'Istage':
-        #         item = self._model.index(row, cnt)
-        #         val = self._model.data(item, Qt.Qt.DisplayRole)
-        #         print val.toString()
-        #         val = int(val.toString())
-        #         self.debug_stageI_signal.emit(val)
-        #
-        #     cnt += 1
+        if self.bDebugStageIICorrect:
+            cnt = 0
+            temp = list()
+            temp.append('Name')
+            for s in temp+self._selected_att:
+                if s == 'Istage':
+                    item = self._model.index(row, cnt)
+                    val = self._model.data(item, Qt.Qt.DisplayRole)
+                    s = val.toString()
+                    if not s == '':
+                        val = int(val.toString())
+                        self.debug_stageI_signal.emit(val)
+
+                    print(val)
+
+                cnt += 1
 
     def _write_stage2_corrected(self):
 
@@ -353,7 +359,7 @@ class DataBrowserForm(QtGui.QWidget):
 
     def _current_row_increment(self):
 
-        if bWriteStageIIcorrect:
+        if self.bWriteStageIIcorrect:
             self._write_stage2_corrected()
 
         nmax = self._model.rowCount()-1
@@ -364,7 +370,7 @@ class DataBrowserForm(QtGui.QWidget):
 
     def _current_row_decrement(self):
 
-        if bWriteStageIIcorrect:
+        if self.bWriteStageIIcorrect:
             self._write_stage2_corrected()
 
         nsel = self._get_selected_row()

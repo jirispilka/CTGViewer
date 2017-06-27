@@ -42,8 +42,8 @@ from Print import ExportToPdfForm
 
 DEBUG_PROFILE = False
 DEBUG_FIGO_ANN = False
-DEBUG_MISC = True
-DEBUG_TOOLS = True
+DEBUG_MISC = False
+DEBUG_TOOLS = False
 
 # conditional import
 if DEBUG_PROFILE:
@@ -82,7 +82,6 @@ class Main(QtGui.QMainWindow):
         self._dataBrowserWidget = DataBrowserForm()
         self.ui.dockDataBrowser.setWidget(self._dataBrowserWidget)
         self._dataBrowserWidget.plotFileSignal.connect(self.plot_file)
-        # self._dataBrowserWidget.debug_stageI_signal.connect(self.debug_plot_stage1)
 
         valr = self._config_ini.get_var(EnumIniVar.annotationToolbarAlignR)
         self.ui.actionAnnToolbarAlign_right.setChecked(valr)
@@ -143,6 +142,8 @@ class Main(QtGui.QMainWindow):
         self.ui.actionCaliperFHR.setChecked(self._config_ini.get_var(EnumIniVar.caliperFHR))
         self.ui.actionCaliperTOCO.setChecked(self._config_ini.get_var(EnumIniVar.caliperTOCO))
         self._caliper_set()
+
+        self._debug_data = dict()
 
         if DEBUG_TOOLS is True:
             self.menuDebug = QtGui.QMenu(self.ui.menubar)
@@ -260,6 +261,9 @@ class Main(QtGui.QMainWindow):
 
         if DEBUG_TOOLS is True:
             self.ui.actionDebug_CalibSignal.triggered.connect(self.plot_calibration_signal)
+
+            if self._dataBrowserWidget.bDebugStageIICorrect:
+                self._dataBrowserWidget.debug_stageI_signal.connect(self.debug_plot_stage1)
 
     def _dock_clin_info_visibility(self):
         """ Clinical information dock visibility has changed, set the property of checkbox"""
@@ -492,6 +496,13 @@ class Main(QtGui.QMainWindow):
         #     self.ui.PlotWidget.plot_stage1_line(val)
         #     self.ui.PlotWidget.updatePlots()
 
+        self._debug_data = adata
+
+        # val = adata.get('Pos_Ist', None)
+        # if val != -1 and val is not None:
+        #     self.ui.PlotWidget.plot_stage1_line(val)
+        #     self.ui.PlotWidget.updatePlots()
+
         val = adata.get('Pos_Birth')
         # print val
         if val != -1 and val is not None:
@@ -542,6 +553,22 @@ class Main(QtGui.QMainWindow):
         fs = self.ui.PlotWidget.fhrPlot.get_sampling_freq()
         fhr, uc, timestamp = Common.generate_calib_signal(fs, paper_format)
         self.ui.PlotWidget.plot(timestamp, fhr, uc)
+
+    def debug_plot_stage1(self, pos_stage1):
+
+        d = self._debug_data
+        if len(d) == 0:
+            return
+
+        stage1_min = pos_stage1
+        fs = d['fs']
+        n = len(d['fhr'])
+
+        pos_stage1 = n - round(60 * fs * (stage1_min))
+
+        print pos_stage1
+        self.ui.PlotWidget.plot_stage1_line(pos_stage1)
+        self.ui.PlotWidget.updatePlots()
 
     def _show_about(self):
         win = AboutDialog()
