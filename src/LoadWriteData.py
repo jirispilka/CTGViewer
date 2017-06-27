@@ -442,14 +442,23 @@ class LoadData:
         :type cdata: loaded matlab structure
         :return: datadict: diconary with clinical information to be displayed
         """
-        var_list_in = ['pH', 'BDecf', 'dataLengthOrig_min', 'fs', 'sig2End_min', 'sig2End_samp', 'fileNameMat',
+        var_list_in = ['pH', 'BDecf', 'dataLengthOrig_min', 'fs', 'sig2End_min', 'sig2End_samp'
                        'apgar1', 'apgar5', 'stageII_min', 'stageII_samp', 'operativeSFA', 'birthWeight', 'sexM',
-                       'resuscitationWard', 'NICU', 'moveToSFA', 'ind_stageII', 'obsolete_ind_stageII', 'id']
-        var_list_out = ['pH', 'BDecf', 'dataLengthOrig_min', 'fs', 'Sig2Birth', 'sig2End_samp', 'name',
+                       'resuscitationWard', 'NICU', 'moveToSFA', 'ind_stageII', 'obsolete_ind_stageII']
+        var_list_out = ['pH', 'BDecf', 'dataLengthOrig_min', 'fs', 'Sig2Birth', 'sig2End_samp'
                         'Apgar1', 'Apgar5', 'IIstage', 'Pos_IIst', 'ClinAnnotation', 'Weight_g', 'Sex',
-                        'resuscitationWard', 'NICU', 'NICUacidosis', 'ind_stageII', 'obsolete_ind_stageII', 'name']
+                        'resuscitationWard', 'NICU', 'NICUacidosis', 'ind_stageII', 'obsolete_ind_stageII']
 
         datadict = dict()
+
+        # well this is not very clever but it works
+        for s in ['fileNameMat', 'name', 'id']:
+            try:
+                temp = cdata[s]
+                datadict['name'] = str(temp[0][0][0])
+                break
+            except:
+                continue
 
         for i in range(0, len(var_list_in)):
             s = var_list_in[i]
@@ -457,15 +466,12 @@ class LoadData:
 
             try:
                 temp = cdata[s]
-                # print '{0},{1}'.format(temp, temp.dtype)
             except Exception:
                 self._log.info('Field {0} does not exists in Matlab structure'.format(s))
                 datadict[sout] = 0
                 continue
 
-            temp = np.ravel(temp[0])
-            temp = temp[0].flatten()
-
+            temp = temp[0][0][0]
             if temp.dtype == np.float:
                 datadict[sout] = float(temp)
 
@@ -480,7 +486,7 @@ class LoadData:
         if 'ind_stageII' in datadict:
             datadict['Pos_IIst'] = int(datadict['ind_stageII'])
         else:
-
+            # FIXME This is obsolote and will be removed in the future
             if 'IIstage' in datadict:
                 # fix the position of second stage
                 stage2_min = datadict['IIstage']
