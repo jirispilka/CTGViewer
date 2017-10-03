@@ -37,8 +37,8 @@ def temporary_read_data(sfile):
     sfile = str(sfile)
 
     from LoadWriteData import LoadData
-    dl = LoadData()
-    adata = dl.read_data(sfile)
+    ld = LoadData()
+    adata = ld.read_data(sfile)
 
     return adata
 
@@ -959,7 +959,8 @@ def main():
 
     #  READ CTG DATA
     # sfile = '/home/jirka/data/CTU_UHB_physionet/1001.dat'
-    sfile = '/home/jirka/data/data_barry_schifrin_final/EHA1469_2010.mat'
+    # sfile = '/home/jirka/data/data_barry_schifrin_final/EHA1469_2010.mat'
+    sfile = '/home/jirka/fetuses/data/spam2017_CTG_db/aaa/001.mat'
     # sfile = 'e:\data\data_barry_schifrin_final\EHA0389_2007.mat'
     adata = temporary_read_data(sfile)
     fhr = adata[EnumVariableName.fhr]
@@ -974,8 +975,16 @@ def main():
     annotator.ann_file_load(sfile)
     e.cprint.set_annotations(annotator.get_annotations_copy_all())
 
+    # e.show()
+    # e.ui.lnFileName.setText('/home/jirka/bbb.pdf')
+    # e.save()
+    # e.close()
+    # sys.exit(app.exec_())
+
     e.show()
     sys.exit(app.exec_())
 
+
 if __name__ == '__main__':
     main()
+

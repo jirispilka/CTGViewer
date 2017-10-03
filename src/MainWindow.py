@@ -28,12 +28,11 @@ from PyQt4 import QtCore
 
 from PyQt4.QtCore import pyqtSlot, QSignalMapper
 
-import Common
 from ClinInfoForm import ClinInfo
-from Config import ConfigStatic, ConfigIni
+from Config import ConfigIni
 from DataBrowserForm import DataBrowserForm
 from DataBrowserSelectAttrForm import DataBrowserSelectAttrForm
-from Enums import EnumAnnType, EnumPaperFormat, EnumVariableName as EnumVarName, EnumIniVar
+from Enums import EnumVariableName as EnumVarName
 from GuiForms import *
 from Init import init
 from LoadWriteData import LoadData
@@ -118,7 +117,7 @@ class Main(QtGui.QMainWindow):
             self.ui.actionExport_to_PDF.setEnabled(False)
             self.ui.actionExport_to_PDF.setToolTip('Export to PDF disabled')
 
-        self._process_cmd_args(args)
+        parsed_args = self._process_cmd_args(args)
 
         # paper format
         self._set_paper_format(self._config_ini.get_var(EnumIniVar.paperformat))
@@ -150,6 +149,16 @@ class Main(QtGui.QMainWindow):
             self.menuDebug.setTitle('Debug')
             self.menuDebug.addAction(self.ui.actionDebug_CalibSignal)
             self.ui.menubar.addAction(self.menuDebug.menuAction())
+
+        # this is a tweak for batch export
+        # this is really a hack and should be solver systematically
+        if parsed_args.export_to_pdf is not None:
+            # batch processing
+            self.plot_file(parsed_args.export_to_pdf)
+            self.show()
+            self.ui.PlotWidget.updatePlots()
+            self._export_to_pdf(silent=True)
+            sys.exit(0)
 
     def _create_connections(self):
         """ Creates connections in MainWindow """
@@ -656,7 +665,7 @@ class Main(QtGui.QMainWindow):
             s = '{0} ({1})'.format(self._win_title_default, name)
             self.setWindowTitle(s)
 
-    def _export_to_pdf(self):
+    def _export_to_pdf(self, silent=False):
 
         if EnumVarName.fhr not in self._signal_data.keys():
             self._log.info("Attempt to export to PDF without plotting any signal first")
@@ -689,7 +698,13 @@ class Main(QtGui.QMainWindow):
         annotator = self.ui.PlotWidget.annotator
         self._export_to_pdf_form.set_annotations(annotator.get_annotations_copy_all())
 
-        self._export_to_pdf_form.show()
+        if not silent:
+            self._export_to_pdf_form.show()
+        else:
+            path = os.path.join('/tmp/', self._signal_data.get('name'))
+            self._export_to_pdf_form.ui.lnFileName.setText(path)
+            self._export_to_pdf_form.save()
+            print('Saved to: ', path)
 
     def _update_data_browser(self):
         self._dataBrowserWidget.update_model(self._attSelectForm.get_selected_att())
@@ -723,8 +738,7 @@ class Main(QtGui.QMainWindow):
         if parsed_args.folder is not None:
             self._open_folder_data_browser(parsed_args.folder)
 
-            # print parsed_args.physionet_file
-            # print parsed_args.matlab_file
+        return parsed_args
 
 
 def parse_cmd_args():
@@ -732,6 +746,7 @@ def parse_cmd_args():
     parser.add_argument('-p', '--physionet-file', help='Input file in the physionet format', required=False)
     parser.add_argument('-m', '--matlab-file', help='Input file in the matlab format', required=False)
     parser.add_argument('-f', '--folder', help='Input folder for browsing', required=False)
+    parser.add_argument('--export-to-pdf', help='File to be exported (output is placed into /tmp dir)', required=False)
     return parser.parse_args()
 
 
@@ -744,6 +759,7 @@ def main():
     window.ui.PlotWidget.updatePlots()
 
     sys.exit(app.exec_())
+
 
 if __name__ == '__main__':
 
