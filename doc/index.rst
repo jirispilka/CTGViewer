@@ -1,7 +1,7 @@
 CTGViewer documentation
 =======================
 
-The CTGViewer a simple software used to display cardiotocography (CTG) records -- fetal heart rate and uterine contractions
+The CTGViewer is a software used to display cardiotocography (CTG) records -- fetal heart rate and uterine contractions
 together with a clinical information. It allows to easily browse directory of CTG files (e.g. the
 CTU-UHB cardiotographic database).
 
@@ -41,6 +41,7 @@ Contents:
 Changelog:
 ----------
 
+* 2017-10-13 - supports SPAM challenge data
 * 2016-08-03 - added tool Caliper (used for measurement of time and bpm)
 * 2016-07-12 - added export to PDF file
 * 2016-04-13 - added annotations - ellipse, refactoring

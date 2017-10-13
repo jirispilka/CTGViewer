@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 [ISPP]
 #define AppName "CTGViewer"
-#define AppVersion "0.3.20"
+#define AppVersion "0.3.30"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -20,8 +20,8 @@ DefaultGroupName=CTGViewer
 AllowNoIcons=yes
 LicenseFile=e:\github\CTGViewer\LICENSE
 OutputBaseFilename={#AppName}_v{#AppVersion}_setup
-; Compression=lzma
-Compression=none
+Compression=lzma
+; Compression=none
 SolidCompression=yes
 OutputDir="build"
 

@@ -348,7 +348,7 @@ class Main(QtGui.QMainWindow):
         # self.ui.toolBar.addAction(self.ui.actionEllipse)
         self.ui.toolBar.addAction(self.ui.actionEllipseNote)
         self.ui.toolBar.addAction(self.ui.actionNote)
-        self.ui.toolBar.addAction(self.ui.actionEvaluationNote)
+        # self.ui.toolBar.addAction(self.ui.actionEvaluationNote)
         self.ui.toolBar.addSeparator()
         self.ui.toolBar.addAction(self.ui.actionCaliper)
         # self.ui.toolBar.addAction(self.ui.actionAnnShowHide)

@@ -12,10 +12,11 @@ Windows installer
 
 *The latest version:*
 
-* `CTGViewer_v0.3.10_setup.exe <../CTGViewer_v0.3.10_setup.exe>`_
+* `CTGViewer_v0.3.30_setup.exe <../CTGViewer_v0.3.30_setup.exe>`_
 
 *Past versions:*
 
+* `CTGViewer_v0.3.10_setup.exe <../CTGViewer_v0.3.10_setup.exe>`_
 * `CTGViewerLite_v0.3.00_setup.exe <../CTGViewerLite_v0.3.00_setup.exe>`_
 * `CTGViewerLite_v0.2.72_setup.exe <../CTGViewerLite_v0.2.72_setup.exe>`_
 * `CTGViewerLite_v0.2.55_setup.exe <../CTGViewerLite_v0.2.55_setup.exe>`_

@@ -84,9 +84,9 @@ All required files are available on github: https://github.com/spilkjir/CTGViewe
 
 **An example of setup.py file:**
 
-.. literalinclude:: ../setup.py
+.. literalinclude:: ../src/setup.py
 
 **An example of setup_inno.iss file:**
 
-.. literalinclude:: ../setup_inno.iss
+.. literalinclude:: ../src/setup_inno.iss
    :language: guess
