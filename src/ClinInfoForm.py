@@ -59,13 +59,12 @@ dictClinInfoFullNames['Rec_type'] = 'Record type'
 dictClinInfoFullNames['Pos_Ist'] = 'Position I stage [samples]'
 dictClinInfoFullNames['Pos_IIst'] = 'Position II stage [samples]'
 dictClinInfoFullNames['Sig2Birth'] = 'Distance Sig2Birth [min.]'
+dictClinInfoFullNames['dbID'] = 'dbID'
 dictClinInfoFullNames['ClinAnnotation'] = 'Annotation (acidosis)'
 dictClinInfoFullNames['resuscitationWard'] = 'Resuscitation on delivery ward'
 dictClinInfoFullNames['NICU'] = 'NICU (yes/no)'
 dictClinInfoFullNames['NICUacidosis'] = 'NICU (acidosis)'
 dictClinInfoFullNames['Note'] = 'Note'
-# dictClinInfoFullNames['ind_stageII'] = 'ind_stageII'  # temporary
-# dictClinInfoFullNames['obsolete_ind_stageII'] = 'obsolete_ind_stageII'  # temporary
 dictClinInfoFullNames[annotation_name] = 'Annotation (file)'
 
 metainfofile = '.metainfo.csv'
@@ -146,12 +145,6 @@ class ClinInfo(QWidget):
         self.__set_label(dict_clin_info, 'Gest_weeks', self.ui.label_week_gestation)
         self.__set_label(dict_clin_info, 'Weight_g', self.ui.label_weigth)
         self.__set_label(dict_clin_info, 'ClinAnnotation', self.ui.label_annot)
-
-        # ['Seizures', '', 'NoProgress', 'Intubation', '', 'CK_KP', '', '',
-        # 'Induced', '', '', '', 'Pos_IIst', 'Deliv_type', '',
-        # '', 'HIE', '', '', '', 'NICU_days', 'Main_diag', 'Pyrexia',
-        # '', '', 'Rec_type', '', '', '', 'dbID', '', '', '', 'Other_diag', '']
-
         self.__set_risk_factors(dict_clin_info, 'Diabetes', self.ui.label_diabetes)
         self.__set_risk_factors(dict_clin_info, '', self.ui.label_fever)
         self.__set_risk_factors(dict_clin_info, 'Hypertension', self.ui.label_hypertension)
@@ -181,6 +174,7 @@ def main():
     window = ClinInfo()
     window.show()
     sys.exit(app.exec_())
+
 
 if __name__ == '__main__':
     main()

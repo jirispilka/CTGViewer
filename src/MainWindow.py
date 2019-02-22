@@ -22,9 +22,9 @@ Reference
     :private-members:
 """
 
+from PyQt4 import QtCore
 # system imports
 import argparse
-from PyQt4 import QtCore
 
 from PyQt4.QtCore import pyqtSlot, QSignalMapper
 

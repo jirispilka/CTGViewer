@@ -9,23 +9,23 @@
 # (see CTGViewer.py for details)
 
 
+from PyQt4 import Qt, QtGui
 import csv
+from datetime import datetime
+from email import Encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 import hashlib
 import io
 import logging
 import os
+import smtplib
 import sys
 import textwrap
 import urllib
-from PyQt4 import Qt
-from PyQt4 import QtGui
+
 from PyQt4.QtCore import pyqtSignal, QString
-from datetime import datetime
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
-from email.mime.text import MIMEText
-from email import Encoders
 
 try:
     import zlib
@@ -41,7 +41,6 @@ from ConvertFileUI import Ui_ConvertFile
 from DownloadCtuUhbUI import Ui_DownloadCtuUhb
 from AddNoteUI import Ui_AddNote
 from SentAnnotationsUI import Ui_SentAnnotations
-from AnnShowHideUI import Ui_AnnShowHideForm
 from LoadWriteData import LoadData
 import ClinInfoForm
 import Common
@@ -514,17 +513,23 @@ class MetainfoFileConvertWorker(Qt.QObject):
         with open(sfile_metainfo_md5, 'w+') as fw:
             fw.write(md5sum)
 
-    def metainfo_create_header_csv(self, sfile_clinical_info):
+    def metainfo_create_header_csv(self, file_clinical_info):
+        """
+        Write header
 
-        with open(sfile_clinical_info, 'w+') as f_clin_info:
+        :param file_clinical_info:
+        :return:
+        """
+
+        with open(file_clinical_info, 'w+') as fw:
             cnt = 0
             for s in self._dict_clin_info.keys():
-                f_clin_info.write(self._dict_clin_info[s])
+                fw.write(self._dict_clin_info[s])
                 cnt += 1
                 if cnt == len(self._dict_clin_info):
-                    f_clin_info.write('\n')
+                    fw.write('\n')
                 else:
-                    f_clin_info.write(',')
+                    fw.write(',')
 
     def metainfo_create_csv(self, dir_dest, files):
         """
@@ -553,7 +558,7 @@ class MetainfoFileConvertWorker(Qt.QObject):
 
         for f in files:
             if self._stop is True:
-                self.file_processed.emit(QString('Metainfo creation stoped'))
+                self.file_processed.emit(QString('Metainfo creation stop'))
                 return -1
 
             try:

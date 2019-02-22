@@ -31,9 +31,8 @@ Reference
    :members:
 """
 
-# system imports
-import sys
 from PyQt4 import QtGui
+import sys
 
 from Init import init
 from MainWindow import Main
@@ -50,11 +49,6 @@ def main():
 
     app = QtGui.QApplication(sys.argv)
 
-    # pixmap = QtGui.QPixmap("images/ctgViewerIntro.png")
-    # splash = QtGui.QSplashScreen(pixmap)
-    # splash.show()
-    # splash.showMessage("Loaded modules")
-    # app.processEvents()
     init()
 
     window = Main(sys.argv)
@@ -63,10 +57,10 @@ def main():
 
     window.show()
     window.ui.PlotWidget.updatePlots()
-    # splash.finish(window)
     window.setGeometry(50, 50, 1500, 30)
 
     sys.exit(app.exec_())
+
 
 if __name__ == '__main__':
 

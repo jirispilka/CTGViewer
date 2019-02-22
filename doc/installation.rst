@@ -34,9 +34,9 @@ Linux
 We expect that Linux users will be able to install required packages in their distribution by themselves.
 
  * Download the source files: https://github.com/spilkjir/CTGViewer.
- * Install all dependencies as desribed in (:ref:`developement`)
+ * Install all dependencies as described in (:ref:`development`)
 
-For debian based distributions:
+For the Debian based distributions:
 
     > sudo apt-get install python python-qt4 python-qwt5-qt4 python-numpy python-scipy python-reportlab
 
